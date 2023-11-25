@@ -1,7 +1,7 @@
 import hero from "../assets/hero.svg"
 
 const Home = () => {
-    return ( <div className="flex">
+    return ( <div className="flex cursor-pointer">
         <div className="flex flex-col justify-around w-1/2">
             <ul className="flex flex-wrap justify-evenly py-8 text-8xl font-semibold">
                 <li>Get</li>
@@ -13,8 +13,8 @@ const Home = () => {
                 <li>Doorstep</li>
             </ul>
             <div className="buttons flex flex-row justify-around w-1/2 ">
-                <button className="bg-color-tertiary text-white px-5 py-2 rounded-3xl text-base">Order now</button>
-                <button className="text-black px-5 py-2 rounded-3xl text-base border border-emerald-950">How it works</button>
+                <button className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base">Order now</button>
+                <button className="text-black hover:bg-rose-500 px-5 py-2 rounded-3xl text-base border border-emerald-950">How it works</button>
             </div>
         </div>
         <div className="hero flex justify-end py-8 w-1/2 ml-10">
