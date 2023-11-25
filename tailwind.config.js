@@ -5,6 +5,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'primary': 'Poppins',
+        'secondary': 'Nunito',
+        'tertiary': 'Montserrat'
+      },
       colors:{
         "color-primary": "#ADAF98",
         "color-secondary": "#E6E8D2",
