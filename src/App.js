@@ -2,6 +2,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import NavBar from "./components/Navbar";
 import ServicesCard from "./components/ServiceCard";
+import Orders from "./components/Orders";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Home />
         <ServicesCard />
         <Footer />
+        {/* <Orders /> */}
       </div>
     </div>
   );

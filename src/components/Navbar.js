@@ -15,10 +15,12 @@ const NavBar = () => {
           <li className="nav-link hover:text-rose-500">Tracker</li>
           <li className="nav-link hover:text-rose-500">Contact Us</li>
         </ul>
-        <button className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base cursor">login</button>
+        <button className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base cursor">
+          login
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default NavBar;
