@@ -8,10 +8,10 @@ function ServicesCard() {
                 <span className='border-b-2 pb-3 text-color-tertiary font-primary'> WHAT WE DO </span>
             </h1>
             <div className='mb-5'>
-                <h1 className='ml-4 lg:ml-60 text-4xl md:text-5xl lg:text-6xl font-semibold text-center'>
-                <span className='border-b-2 pb-3 '> Your Favourite Parcel</span>
+                <h1 className='ml-4 lg:ml-60 text-4xl md:text-4xl sm:text-3xl lg:text-6xl font-semibold text-center'>
+                <span className='border-b-2 pb-3'> Your Favourite Parcel</span>
                 </h1>
-                <h1 className='ml-4 lg:ml-60 text-4xl md:text-5xl lg:text-6xl font-semibold text-center'>
+                <h1 className='ml-4 lg:ml-60 text-4xl md:text-4xl sm:text-3xl lg:text-6xl font-semibold text-center'>
                 <span className='border-b-2 pb-3'> Delivery Partner </span>
                 </h1>
             </div>
