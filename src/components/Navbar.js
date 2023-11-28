@@ -1,8 +1,11 @@
-// NavBar.js
+// import { GoGift } from "react-icons/go";
+import { FaTruckArrowRight } from "react-icons/fa6";
+
 const NavBar = () => {
   return (
     <div className="navbar flex flex-col lg:flex-row justify-between items-center px-8 cursor-pointer mx-4">
-      <div className="mb-4 lg:mb-0">
+      <div className="mb-4 lg:mb-0 flex">
+        <FaTruckArrowRight className="my-1 font-bold text-color-tertiary text-2xl" />
         <h1 className="text-2xl font-semibold">SendiT</h1>
       </div>
       <div className="flex w-full lg:w-1/3 justify-evenly items-center">
