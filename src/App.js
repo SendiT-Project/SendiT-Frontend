@@ -3,6 +3,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import NavBar from "./components/Navbar";
 import ServicesCard from "./components/ServiceCard";
+import Orders from "./components/Orders";
 
 import Login from "./components/Login";
 
@@ -24,6 +25,7 @@ function App() {
           }
         />
         <Route path="/login" Component={Login} />
+        <Route path="/orders" Component={Orders} />
       </Routes>
     </Router>
   );
