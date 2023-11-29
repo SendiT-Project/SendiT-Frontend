@@ -13,12 +13,14 @@ const NavBar = () => {
           <li className="nav-link hover:text-rose-500">Tracker</li>
           <li className="nav-link hover:text-rose-500">Contact Us</li>
         </ul>
-        <Link to="/signup">
+        <Link to="/login">
           <button className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base cursor">Login</button>
         </Link>
       </div>
     </div>
   );
-}
+
+};
+// comments
 
 export default NavBar;
