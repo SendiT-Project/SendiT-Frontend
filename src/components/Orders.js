@@ -49,94 +49,96 @@ function Orders() {
   };
 
   return (
-    <div className="w-full lg:w-1/2 mx-auto bg-white p-6 rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Place an Order</h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
-      >
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">
-            Name of Parcel:
-          </label>
-          <input
-            type="text"
-            name="name_of_parcel"
-            value={orderData.name_of_parcel}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">
-            Destination:
-          </label>
-          <input
-            type="text"
-            name="destination"
-            value={orderData.destination}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">
-            Current Location:
-          </label>
-          <input
-            type="text"
-            name="current_location"
-            value={orderData.current_location}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">
-            Pickup:
-          </label>
-          <input
-            type="text"
-            name="pickup"
-            value={orderData.pickup}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">
-            Weight:
-          </label>
-          <input
-            type="text"
-            name="weight"
-            value={orderData.weight}
-            onChange={handleChange}
-            className="mt-1 p-2 w-full border rounded-md"
-          />
-        </div>
-
-        {orderData.weight && (
-          <p className="text-sm text-gray-600 mb-4">
-            Estimated Price: Ksh {orderData.price}
-          </p>
-        )}
-
-        <button
-          type="submit"
-          className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base cursor"
+    <div className="container mx-auto p-8 flex items-center justify-center h-screen">
+      <div className="w-full max-w-md bg-color-secondary rounded overflow-hidden shadow-lg p-6">
+        <h2 className="text-2xl font-semibold mb-4">Place an Order</h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
         >
-          Place Order
-        </button>
-      </form>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-600">
+              Name of Parcel:
+            </label>
+            <input
+              type="text"
+              name="name_of_parcel"
+              value={orderData.name_of_parcel}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-600">
+              Destination:
+            </label>
+            <input
+              type="text"
+              name="destination"
+              value={orderData.destination}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-600">
+              Current Location:
+            </label>
+            <input
+              type="text"
+              name="current_location"
+              value={orderData.current_location}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-600">
+              Pickup:
+            </label>
+            <input
+              type="text"
+              name="pickup"
+              value={orderData.pickup}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-600">
+              Weight:
+            </label>
+            <input
+              type="text"
+              name="weight"
+              value={orderData.weight}
+              onChange={handleChange}
+              className="mt-1 p-2 w-full border rounded-md"
+            />
+          </div>
+
+          {orderData.weight && (
+            <p className="text-sm text-gray-600 mb-4">
+              Estimated Price: Ksh {orderData.price}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            className="bg-color-tertiary hover:bg-rose-500 text-white px-3 py-1 rounded-full text-base cursor"
+          >
+            Place Order
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
-// commentsss
+
 export default Orders;

@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+// NavBar.js
+import { Link } from 'react-router-dom';
 const NavBar = () => {
   return (
     <div className="navbar flex flex-col lg:flex-row justify-between items-center px-8 cursor-pointer mx-4">
@@ -12,15 +13,13 @@ const NavBar = () => {
           <li className="nav-link hover:text-rose-500">Tracker</li>
           <li className="nav-link hover:text-rose-500">Contact Us</li>
         </ul>
-
         <Link to="/login">
-          <button className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base mb-4 lg:mb-0">
-            Login
-          </button>
+          <button className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base cursor">Login</button>
         </Link>
       </div>
     </div>
   );
+
 };
 // comments
 

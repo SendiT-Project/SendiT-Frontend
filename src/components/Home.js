@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // Comments
 
 const Home = () => {
+
   return (
     <div className="flex flex-col lg:flex-row justify-around cursor-pointer mx-4">
       <div className="flex flex-col flex-wrap justify-around lg:w-1/2">
