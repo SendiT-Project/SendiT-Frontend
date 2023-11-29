@@ -1,5 +1,6 @@
 import hero from "../assets/hero.svg";
 import { Link } from "react-router-dom";
+// Comments
 
 const Home = () => {
   return (
