@@ -22,5 +22,6 @@ const NavBar = () => {
     </div>
   );
 };
+// comments
 
 export default NavBar;
