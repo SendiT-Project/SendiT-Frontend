@@ -14,8 +14,18 @@ const validationSchema = Yup.object().shape({
         .email('Email is invalid'),
     password: Yup.string()
         .required('Password is required')
-        .min(6, 'Password must be at least 6 characters')
-        .max(40, 'Password must not exceed 40 characters'),
+        .min(8, 'Password must be at least 8 characters')
+        .max(40, 'Password must not exceed 40 characters')
+        .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+        .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+        .matches(/[0-9]/, 'Password must contain at least one numeric digit')
+        .matches(/[!@#$%^&*]/, 'Password must contain at least one special character')
+        .matches(/^\S*$/, 'Password must not contain spaces')
+        .notOneOf(['password', '123456', 'qwerty'], 'Avoid using common and easily guessable passwords')
+       
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/, 'Password must include a mix of uppercase and lowercase letters, numbers, and special characters')
+        .notOneOf([Yup.ref('username'), Yup.ref('email')], 'Password must not be similar to the username or email'),
+        
     confirmPassword: Yup.string()
         .required('Confirm Password is required')
         .oneOf([Yup.ref('password'), null], 'Passwords must match'),
@@ -26,15 +36,17 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     const handleSubmit = (data, { resetForm }) => {
-        axios.post('https://127.0.0.1:5000/signup', {
+        axios.post('http://127.0.0.1:5000/signup', {
             username: data.username,
             email: data.email,
             password: data.password
         })
         .then(function (response) {
             console.log(response);
-            alert('New user added.');
+            alert('New user added successfully.');
             resetForm();
+            navigate("/login");
+
         })
         .catch(function (error) {
             console.error(error);
@@ -42,9 +54,9 @@ const SignUp = () => {
         });
     };
 
-    const handleLoginLinkClick = () => {
-        navigate("/login");
-    };
+   //const handleLoginLinkClick = () => {
+       
+   // };
 
     return (
         <div className="container mx-auto p-20 flex items-center justify-center h-screen">
@@ -109,7 +121,7 @@ const SignUp = () => {
                                 Already have an account?{' '}
                                 <span
                                     className="text-color-tertiary cursor-pointer"
-                                    onClick={handleLoginLinkClick}
+                                    //onClick={handleLoginLinkClick}
                                 >
                                     Login
                                 </span>
