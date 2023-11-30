@@ -25,15 +25,16 @@ function Login() {
       body: JSON.stringify(values),
     })
       .then((response) => {
-        if (!response.ok) {
-          alert("failed to login");
+        if (response.ok) {
+          alert("Login successful");
+          navigate("/orders")
         }
-        return response.json();
+        else {
+          alert("Wrong password");
+          window.location.reload();
+        }
       })
-      .then((data) => {
-        alert("Login successful");
-        navigate("/Orders");
-      })
+      
       .catch((error) => {
         console.error("Error:", error);
       });
