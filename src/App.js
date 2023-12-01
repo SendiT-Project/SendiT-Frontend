@@ -11,13 +11,12 @@ import { enqueueSnackbar } from 'notistack';
 import AdminOrders from './components/AdminOrders';
 import Tracker from './components/Tracker';
 
+
 function App() {
   const [user, setUser] = useState({})
   const [isLoggedIn, setIsLoggedIn] = useState({})
   const [orders, setOrders] = useState([])
   const [loading, setLoading] = useState(false)
-  const [currentPage, setCurrentPage] =useState(1)
-  const [ordersPerPage, setOrdersPerPage] = useState(5)
 
 
   useEffect(() =>{
@@ -33,7 +32,10 @@ function App() {
     })
   }, [])
 
-  console.log(orders)
+
+  // const indexOfLastOrder = currentPage * ordersPerPage
+  // const indexOfFirstOrder = indexOfLastOrder - ordersPerPage
+  // const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder)
 
 
   useEffect(() =>{
@@ -83,7 +85,7 @@ function App() {
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/tracker" element={<Tracker />} />
-        <Route path="/adminOrders" element={<AdminOrders orders={orders} loading={loading}/>} />
+       <Route path="/adminOrders" element={<AdminOrders orders={orders} loading={loading}/>} />
       </Routes>
       <Footer/>
     </Router>
