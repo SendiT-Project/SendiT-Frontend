@@ -1,10 +1,10 @@
 import hero from "../assets/hero.svg";
 import { Link } from "react-router-dom";
-// Comments
+import ServicesCard from "./ServiceCard";
 
 const Home = () => {
 
-  return (
+  return (<>
     <div className="flex flex-col lg:flex-row justify-around cursor-pointer mx-4">
       <div className="flex flex-col flex-wrap justify-around lg:w-1/2">
         <div className="mb-4 flex flex-col flex-wrap justify-evenly py-8 text-7xl font-semibold">
@@ -38,6 +38,10 @@ const Home = () => {
         <img src={hero} alt="hero" className="m-auto" />
       </div>
     </div>
+         <div className="flex flex-col">
+         <ServicesCard />
+         </div>
+  </>
   );
 };
 

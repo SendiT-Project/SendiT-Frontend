@@ -1,8 +1,10 @@
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Orders() {
   const navigate = useNavigate();
+  const {enqueueSnackbar} = useSnackbar
 
   const [orderData, setOrderData] = useState({
     name_of_parcel: "",
@@ -34,13 +36,16 @@ function Orders() {
     })
       .then((response) => {
         if (response.status === 201) {
+          enqueueSnackbar('User not Registered', { variant: 'error' });
           return response.json();
+          
         } else {
           throw new Error("Posting order failed: " + response.status);
         }
       })
       .then((data) => {
-        alert("Placed an order: " + JSON.stringify(data));
+        setOrderData(data)
+        alert("Placed an order: ");
         navigate("/tracking");
       })
       .catch((error) => {
