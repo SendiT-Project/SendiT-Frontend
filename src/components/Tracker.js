@@ -1,6 +1,6 @@
 const Tracker = () => {
     return ( <div>
-        <h1>The user will be reidected here to track their orders</h1>
+        <h1>This is the tracking component</h1>
     </div> );
 }
  
