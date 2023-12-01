@@ -1,4 +1,20 @@
-const AdminOrders = ({ orders, loading }) => {
+import { useState } from "react";
+
+const AdminOrders = ({ orders, loading}) => {
+
+  const [page, setPage] =useState(1)
+  const [ordersPerPage] = useState(10)
+
+  const selectPageHandler =(selectedPage)=>{
+    if (selectedPage >=1 && selectedPage<= orders.length/ordersPerPage && selectedPage !== page)
+    setPage(selectedPage)
+  }
+
+  if(loading){
+    return <h2>Loading...</h2>
+  
+
+  }
     return (
       <div className="mt-5">
         <h1 className="text-2xl font-bold mb-4 text-center">Orders</h1>
@@ -13,7 +29,7 @@ const AdminOrders = ({ orders, loading }) => {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {orders.slice(page*ordersPerPage-ordersPerPage,page*ordersPerPage).map((order) => (
               <tr key={order.order_number}>
                 <td className="py-2 px-4 border-b">{order.name_of_parcel}</td>
                 <td className="py-2 px-4 border-b">{order.destination}</td>
@@ -49,9 +65,31 @@ const AdminOrders = ({ orders, loading }) => {
             ))}
           </tbody>
         </table>
+
+      {
+        orders.length>0 && 
+        <div className=" mb-4 mt-4 flex justify-center">
+          <span className={page> 1 ? "cursor-pointer" : "opacity-0"} onClick={()=>selectPageHandler(page-1)}>◀ </span>
+          {
+          [...Array(Math.ceil(orders.length/ordersPerPage))].map((_, i)=>{
+            return<span className={page=== i+1 ? "p-4 py-2 mx-1 border cursor-pointer":""}
+                         key={`page-${i + 1}`}
+                         onClick={()=>selectPageHandler(i + 1)}
+                         >
+                          {i + 1}
+                  </span>
+          })
+        
+          }
+  
+          <span className={page<orders.length/ordersPerPage ? "cursor-pointer" : "opacity-0"} onClick={()=>selectPageHandler(page+1)}>▶  </span>
+        </div>
+      }
       </div>
     );
   };
   
   export default AdminOrders;
   
+
+  //"p-1 cursor-pointer border-spacing-1"
