@@ -27,9 +27,11 @@ const Home = () => {
               Order now
             </button>
           </Link>
-          <button className="text-black hover:bg-rose-500 px-5 py-2 rounded-3xl text-base border border-emerald-950">
-            How it works
-          </button>
+          <Link to={"/about"}>
+            <button className="text-black hover:bg-rose-500 px-5 py-2 rounded-3xl text-base border border-emerald-950">
+              How it works
+            </button>
+          </Link>
         </div>
       </div>
       <div className="hero flex justify-end py-8 lg:w-1/2">
