@@ -91,5 +91,3 @@ const AdminOrders = ({ orders, loading}) => {
   
   export default AdminOrders;
   
-
-  //"p-1 cursor-pointer border-spacing-1"

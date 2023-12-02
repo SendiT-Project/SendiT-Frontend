@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function Login({setUser}) {
+function Login({setUser, setIsLoggedIn}) {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const initialValues = {
@@ -30,6 +30,7 @@ function Login({setUser}) {
         if (response.ok) {
           enqueueSnackbar('Log in Successful', { variant: 'success' });
           navigate("/orders");
+          setIsLoggedIn(true)
         } else if(response.status===401){
           enqueueSnackbar('Invalid credentials', { variant: 'error' });
         } else if (response.status === 404) {
