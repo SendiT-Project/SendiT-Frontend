@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Map from "./Map"; 
+import ServicesCard from "./ServiceCard";
+import Map from "./Map";
 
 const Home = () => {
-  return (
+
+  return (<>
     <div className="flex flex-col lg:flex-row justify-around cursor-pointer mx-4">
       <div className="flex flex-col flex-wrap justify-around lg:w-1/2">
         <div className="mb-4 flex flex-col flex-wrap justify-evenly py-8 text-7xl font-semibold">
@@ -26,16 +28,22 @@ const Home = () => {
               Order now
             </button>
           </Link>
-          <button className="text-black hover:bg-rose-500 px-5 py-2 rounded-3xl text-base border border-emerald-950">
-            How it works
-          </button>
+          <Link to={"/about"}>
+            <button className="text-black hover:bg-rose-500 px-5 py-2 rounded-3xl text-base border border-emerald-950">
+              How it works
+            </button>
+          </Link>
         </div>
       </div>
-      {/* Include the DeliveryMap component here */}
+     
       <div className="map-container lg:w-1/2">
         <Map />
       </div>
     </div>
+         <div className="flex flex-col">
+         <ServicesCard />
+         </div>
+  </>
   );
 };
 

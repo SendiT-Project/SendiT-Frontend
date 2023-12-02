@@ -1,8 +1,10 @@
+// import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Orders() {
   const navigate = useNavigate();
+  // const {enqueueSnackbar} = useSnackbar
 
   const [orderData, setOrderData] = useState({
     name_of_parcel: "",
@@ -25,7 +27,7 @@ function Orders() {
   };
 
   const handleSubmit = () => {
-    fetch("http://127.0.0.1:5000/orders", {
+    fetch("/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -35,13 +37,15 @@ function Orders() {
       .then((response) => {
         if (response.status === 201) {
           return response.json();
+          
         } else {
           throw new Error("Posting order failed: " + response.status);
         }
       })
       .then((data) => {
-        alert("Placed an order: " + JSON.stringify(data));
-        navigate("/tracking");
+        setOrderData(data)
+        alert("Placed an order: ");
+        navigate("/tracker");
       })
       .catch((error) => {
         console.error("Error:", error.message);
