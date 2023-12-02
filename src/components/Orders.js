@@ -1,8 +1,10 @@
+// import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Orders() {
   const navigate = useNavigate();
+  // const {enqueueSnackbar} = useSnackbar
 
   const [orderData, setOrderData] = useState({
     name_of_parcel: "",
@@ -35,13 +37,15 @@ function Orders() {
       .then((response) => {
         if (response.status === 201) {
           return response.json();
+          
         } else {
           throw new Error("Posting order failed: " + response.status);
         }
       })
       .then((data) => {
-        alert("Placed an order: " + JSON.stringify(data));
-        navigate("/tracking");
+        setOrderData(data)
+        alert("Placed an order: ");
+        navigate("/tracker");
       })
       .catch((error) => {
         console.error("Error:", error.message);
@@ -64,6 +68,7 @@ function Orders() {
             </label>
             <input
               type="text"
+              required
               name="name_of_parcel"
               value={orderData.name_of_parcel}
               onChange={handleChange}
@@ -77,6 +82,7 @@ function Orders() {
             </label>
             <input
               type="text"
+              required
               name="destination"
               value={orderData.destination}
               onChange={handleChange}
@@ -89,6 +95,7 @@ function Orders() {
               Current Location:
             </label>
             <input
+            required
               type="text"
               name="current_location"
               value={orderData.current_location}
@@ -102,6 +109,7 @@ function Orders() {
               Pickup:
             </label>
             <input
+            required
               type="text"
               name="pickup"
               value={orderData.pickup}
@@ -115,6 +123,7 @@ function Orders() {
               Weight:
             </label>
             <input
+            required
               type="text"
               name="weight"
               value={orderData.weight}

@@ -1,10 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function Login() {
+function Login({setUser, setIsLoggedIn}) {
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const initialValues = {
     username: "",
     password: "",
@@ -21,16 +23,26 @@ function Login() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials:"include",
       body: JSON.stringify(values),
     })
       .then((response) => {
         if (response.ok) {
-          alert("Login successful");
+          enqueueSnackbar('Log in Successful', { variant: 'success' });
           navigate("/orders");
-        } else {
-          alert("Wrong password");
-          window.location.reload();
+          setIsLoggedIn(true)
+        } else if(response.status===401){
+          enqueueSnackbar('Invalid credentials', { variant: 'error' });
+        } else if (response.status === 404) {
+          enqueueSnackbar('User not Registered', { variant: 'error' });
+        }else {
+          return response.json(); 
         }
+      })
+      .then((data) =>{
+        if(data)
+       { setUser(data)
+        console.log(data)}
       })
       .catch((error) => {
         console.error("Error:", error);
