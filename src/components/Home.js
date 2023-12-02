@@ -1,9 +1,8 @@
-import hero from "../assets/hero.svg";
+import React from "react";
 import { Link } from "react-router-dom";
-// Comments
+import Map from "./Map"; 
 
 const Home = () => {
-
   return (
     <div className="flex flex-col lg:flex-row justify-around cursor-pointer mx-4">
       <div className="flex flex-col flex-wrap justify-around lg:w-1/2">
@@ -32,8 +31,9 @@ const Home = () => {
           </button>
         </div>
       </div>
-      <div className="hero flex justify-end py-8 lg:w-1/2">
-        <img src={hero} alt="hero" className="m-auto" />
+      {/* Include the DeliveryMap component here */}
+      <div className="map-container lg:w-1/2">
+        <Map />
       </div>
     </div>
   );
