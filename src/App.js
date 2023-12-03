@@ -91,7 +91,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>} />
-        <Route path="/orders" element={<Orders/>} />
+        <Route path="/orders" element={<Orders isLoggedIn={isLoggedIn}/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/tracker" element={<Tracker user={user} />} />
