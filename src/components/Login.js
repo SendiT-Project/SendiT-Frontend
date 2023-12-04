@@ -29,7 +29,7 @@ function Login({setUser, setIsLoggedIn}) {
       .then((response) => {
         if (response.ok) {
           enqueueSnackbar('Log in Successful', { variant: 'success' });
-          navigate("/orders");
+          navigate("/");
           setIsLoggedIn(true)
         } else if (response.status === 400) {
           enqueueSnackbar('User already logged in', { variant: 'error' });

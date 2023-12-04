@@ -22,25 +22,6 @@ function App() {
 
 
   useEffect(() =>{
-    setLoading(true)
-    fetch('/orders', {credentials: "include"})
-    .then(r =>r.json())
-    .then(data =>{
-      setOrders(data)
-      setLoading(false)
-    })
-    .catch(error => {
-      console.log("Error fetching session:", error)
-    })
-  }, [])
-
-
-  // const indexOfLastOrder = currentPage * ordersPerPage
-  // const indexOfFirstOrder = indexOfLastOrder - ordersPerPage
-  // const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder)
-
-
-  useEffect(() =>{
     fetch('/session',{credentials: "include"})
     .then(r =>r.json())
     .then(data =>{
@@ -52,9 +33,32 @@ function App() {
     })
   }, [isLoggedIn])
 
-  // function handleLogin(user){
-  //   setUser(user)
-  // }
+
+  useEffect(() =>{
+    setLoading(true)
+    fetch('/orders', {credentials: "include"}) 
+    .then(r =>r.json())
+    .then(data =>{
+      setOrders(data)
+      setLoading(false)
+    })
+    .catch(error => {
+      console.log("Error fetching session:", error)
+    })
+  }, [])
+
+
+  function handleUpdateOrder(updatedOrder){
+    const updatedOrders = orders.map((order)=>{
+      if(order.order_number===updatedOrder.order_number){
+        return updatedOrder;
+      }else{
+        return order;
+      }
+    });
+    setOrders(updatedOrders);
+  }
+
 
   function handleLogout() {
     fetch('/logout', {
@@ -66,13 +70,7 @@ function App() {
     .then(setIsLoggedIn(false))
     .then(enqueueSnackbar('Logged out successfully', { variant: "success" }))
     .then(navigate('/'))
-      // .then(() => {
-      //   console.log(user)
-      //   setUser(null);
-      //   console.log(user)
-      //   setIsLoggedIn(false);
-      //   enqueueSnackbar('Logged out successfully', { variant: "success" });
-      // })
+  
       .catch(error => {
         console.error("Logout error:", error);
       });
@@ -85,17 +83,26 @@ function App() {
       <div className="bg-color-secondary p-8 mx-4">
       <NavBar user={user} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} onLogout={handleLogout}/>
       <Routes>
-        <Route
-          path="/"
-          element={<Home />
-          }
+        <Route path="/" element={<Home />}
         />
         <Route path="/login" element={<Login setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>} />
         <Route path="/orders" element={<Orders isLoggedIn={isLoggedIn}/>} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/tracker" element={<Tracker user={user} />} />
-       <Route path="/adminOrders" element={<AdminOrders orders={orders} loading={loading}/>} />
+        <Route
+            path="/adminOrders"
+            element={
+              (user && user.is_admin) ? (
+                <AdminOrders orders={orders} loading={loading} onUpdateOrder={handleUpdateOrder} />
+              ) : (
+              <div className='flex flex-col items-center text-3xl text-red-600 font-extrabold'>
+                <h3 >Not Authorized</h3>
+                <p >You do not have permission to access this page.</p>
+              </div>
+              )
+            }
+          />
       </Routes>
       <Footer/>
     </div>
