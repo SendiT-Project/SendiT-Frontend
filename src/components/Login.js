@@ -29,9 +29,12 @@ function Login({setUser, setIsLoggedIn}) {
       .then((response) => {
         if (response.ok) {
           enqueueSnackbar('Log in Successful', { variant: 'success' });
-          navigate("/orders");
+          navigate("/");
           setIsLoggedIn(true)
-        } else if(response.status===401){
+        } else if (response.status === 400) {
+          enqueueSnackbar('User already logged in', { variant: 'error' });
+          navigate('/')
+        }else if(response.status===401){
           enqueueSnackbar('Invalid credentials', { variant: 'error' });
         } else if (response.status === 404) {
           enqueueSnackbar('User not Registered', { variant: 'error' });
