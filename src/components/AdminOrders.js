@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Menu from "./Menu";
 
 const AdminOrders = ({ orders, loading, onUpdateOrder}) => {
 
@@ -47,7 +48,7 @@ const AdminOrders = ({ orders, loading, onUpdateOrder}) => {
 
   }
     return (
-      <div className="mt-5">
+      <div className="mt-5 ml-40">
         <h1 className="text-2xl font-bold mb-4 text-center">Orders</h1>
         <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
           <thead className="text-start">
@@ -112,7 +113,9 @@ const AdminOrders = ({ orders, loading, onUpdateOrder}) => {
             ))}
           </tbody>
         </table>
-
+      <div>
+        <Menu />
+      </div>
       {
         orders.length>0 && 
         <div className=" mb-4 mt-4 flex justify-center">
