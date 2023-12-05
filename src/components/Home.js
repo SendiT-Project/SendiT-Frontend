@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ServicesCard from "./ServiceCard";
-import Map from "./Map";
+
 
 const Home = () => {
 
@@ -36,9 +36,7 @@ const Home = () => {
         </div>
       </div>
      
-      <div className="map-container lg:w-1/2">
-        <Map />
-      </div>
+      
     </div>
          <div className="flex flex-col">
          <ServicesCard />

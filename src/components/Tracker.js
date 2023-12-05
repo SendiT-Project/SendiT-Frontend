@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Map from "./Map";
 
 const Tracker = ({ user, onUpdateOrder }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
@@ -40,6 +41,10 @@ const Tracker = ({ user, onUpdateOrder }) => {
       {user && user.orders ? (
         <>
           <h1>{user.username}</h1>
+
+          <div className="map-container lg:w-1/2">
+            <Map />
+          </div>
           <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
             <thead className="text-start">
               <tr>
@@ -102,6 +107,7 @@ const Tracker = ({ user, onUpdateOrder }) => {
               ))}
             </tbody>
           </table>
+
         </>
       ) : (
         <p>Session not created</p>

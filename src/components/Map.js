@@ -27,7 +27,7 @@ const Map = () => {
   }, []);
 
   return (
-    <LoadScript googleMapsApiKey="our api key">
+    <LoadScript googleMapsApiKey="AIzaSyAQFR0tb_Oe6PR_LDRukyAJ0V7WL6AHKgs">
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
@@ -46,4 +46,4 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default Map
