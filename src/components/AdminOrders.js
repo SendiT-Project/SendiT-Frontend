@@ -1,6 +1,7 @@
 import { useState } from "react";
+import Menu from "./Menu";
 
-const AdminOrders = ({ orders, loading}) => {
+const AdminOrders = ({ orders, loading, onUpdateOrder}) => {
 
   const [page, setPage] =useState(1)
   const [ordersPerPage] = useState(10)
@@ -10,13 +11,44 @@ const AdminOrders = ({ orders, loading}) => {
     setPage(selectedPage)
   }
 
+  orders.map((order)=>order)
+
+
+  function updateOrders(order) {
+    fetch(`/orders/${order.order_number}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        current_location: order.current_location,
+        status: order.status,
+      }),
+    })
+      .then((r) => r.json())
+      .then((updatedOrder) =>
+       onUpdateOrder(updatedOrder));
+
+  }
+  
+
+  const handleStatusChange = (e, order) => {
+    const updatedOrder = { ...order, status: e.target.value };
+    onUpdateOrder(updatedOrder);
+  };
+  
+  const handleLocationChange = (e, order) => {
+    const updatedOrder = { ...order, current_location: e.target.value };
+    onUpdateOrder(updatedOrder);
+  };
+
   if(loading){
     return <h2>Loading...</h2>
   
 
   }
     return (
-      <div className="mt-5">
+      <div className="mt-5 ml-40">
         <h1 className="text-2xl font-bold mb-4 text-center">Orders</h1>
         <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
           <thead className="text-start">
@@ -33,12 +65,22 @@ const AdminOrders = ({ orders, loading}) => {
               <tr key={order.order_number}>
                 <td className="py-2 px-4 border-b">{order.name_of_parcel}</td>
                 <td className="py-2 px-4 border-b">{order.destination}</td>
-                <td className="py-2 px-4 border-b">{order.current_location}</td>
+                <td className="py-2 px-4 border-b">
+                  <input
+                    type="text"
+                    value={order.current_location}
+                    onChange={(e) => handleLocationChange(e, order)}
+
+                  />
+                </td>
                 <td className="py-2 px-4 border-b">
                   <div className="relative">
                     <select
-                      className="appearance-none border border-gray-300 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-blue-500"
                       value={order.status}
+                      onChange={(e) => handleStatusChange(e, order)}
+                  
+                      className="appearance-none border border-gray-300 text-gray-700 py-1 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-blue-500"
+
                       disabled={loading}
                     >
                       <option value="pending">Pending</option>
@@ -61,11 +103,19 @@ const AdminOrders = ({ orders, loading}) => {
                   </div>
                 </td>
                 <td className="py-2 px-4 border-b">{order.weight}</td>
+                <button
+                    onClick={() => updateOrders(order)}
+                    className="px-2 py-1 mr-2 bg-green-500 text-white rounded"
+                  >
+                    Save
+                </button>
               </tr>
             ))}
           </tbody>
         </table>
-
+      <div>
+        <Menu />
+      </div>
       {
         orders.length>0 && 
         <div className=" mb-4 mt-4 flex justify-center">
@@ -91,5 +141,3 @@ const AdminOrders = ({ orders, loading}) => {
   
   export default AdminOrders;
   
-
-  //"p-1 cursor-pointer border-spacing-1"

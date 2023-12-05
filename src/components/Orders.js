@@ -68,6 +68,7 @@ function Orders() {
             </label>
             <input
               type="text"
+              required
               name="name_of_parcel"
               value={orderData.name_of_parcel}
               onChange={handleChange}
@@ -81,6 +82,7 @@ function Orders() {
             </label>
             <input
               type="text"
+              required
               name="destination"
               value={orderData.destination}
               onChange={handleChange}
@@ -93,6 +95,7 @@ function Orders() {
               Current Location:
             </label>
             <input
+            required
               type="text"
               name="current_location"
               value={orderData.current_location}
@@ -106,6 +109,7 @@ function Orders() {
               Pickup:
             </label>
             <input
+            required
               type="text"
               name="pickup"
               value={orderData.pickup}
@@ -119,6 +123,7 @@ function Orders() {
               Weight:
             </label>
             <input
+            required
               type="text"
               name="weight"
               value={orderData.weight}
