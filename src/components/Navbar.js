@@ -1,5 +1,7 @@
 
 import { Link, Outlet } from 'react-router-dom';
+
+
 const NavBar = ({user, isLoggedIn, setIsLoggedIn, onLogout}) => {
   return (
     <div className="navbar flex flex-col lg:flex-row justify-between items-center px-8 cursor-pointer mx-4">
@@ -22,7 +24,9 @@ const NavBar = ({user, isLoggedIn, setIsLoggedIn, onLogout}) => {
           </Link>
         )}
       </div>
-      <Outlet />
+      <Outlet></Outlet>
+
+
     </div>
   );
 

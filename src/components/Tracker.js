@@ -1,35 +1,37 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const Tracker = ({ user }) => {
+const Tracker = ({ user, onUpdateOrder }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState('');
 
   const handleEditDestination = (orderId, currentDestination) => {
+    console.log('Editing destination for order:', orderId);
     setEditingOrderId(orderId);
     setEditedDestination(currentDestination);
   };
-    // testing if this will be pushed to git
-  const handleSaveDestination = (orderId) => {
-    fetch(`/orders/${orderId}`, {
+
+  const updateOrders = (order) => {
+    fetch(`/orders/${order.order_number}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials:"include",
-      body: JSON.stringify({ destination: editedDestination }),
+      body: JSON.stringify({
+        destination: editedDestination,
+      }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        
-        const updatedDestination = data.destination;
-
-        setEditedDestination(updatedDestination);
-
-         setEditingOrderId(null);
+      .then((updatedOrder) => {
+        onUpdateOrder(updatedOrder);
+        setEditingOrderId(null);
       })
       .catch((error) => {
         console.error('Error updating destination:', error);
       });
+  };
+
+  const handleDestinationChange = (e) => {
+    setEditedDestination(e.target.value);
   };
 
   return (
@@ -58,7 +60,7 @@ const Tracker = ({ user }) => {
                       <input
                         type="text"
                         value={editedDestination}
-                        onChange={(e) => setEditedDestination(e.target.value)}
+                        onChange={(e) => handleDestinationChange(e, order)}
                       />
                     ) : (
                       order.destination
@@ -73,7 +75,7 @@ const Tracker = ({ user }) => {
                         {editingOrderId === order.order_number ? (
                           <>
                             <button
-                              onClick={() => handleSaveDestination(order.order_number)}
+                              onClick={() => updateOrders(order)}
                               className="px-2 py-1 mr-2 bg-green-500 text-white rounded"
                             >
                               Save
@@ -87,9 +89,7 @@ const Tracker = ({ user }) => {
                           </>
                         ) : (
                           <button
-                            onClick={() =>
-                              handleEditDestination(order.order_number, order.destination)
-                            }
+                            onClick={() => handleEditDestination(order.order_number, order.destination)}
                             className="px-2 py-1 bg-blue-500 text-white rounded"
                           >
                             Edit Destination
