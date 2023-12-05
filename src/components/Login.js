@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function Login({setUser, setIsLoggedIn}) {
+function Login({user, setUser, setIsLoggedIn}) {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const initialValues = {
@@ -29,9 +29,12 @@ function Login({setUser, setIsLoggedIn}) {
       .then((response) => {
         if (response.ok) {
           enqueueSnackbar('Log in Successful', { variant: 'success' });
-          navigate("/orders");
           setIsLoggedIn(true)
-        } else if(response.status===401){
+          navigate((user && !user.is_admin) ? '/orders': "/adminOrders");
+        } else if (response.status === 400) {
+          enqueueSnackbar('User already logged in', { variant: 'error' });
+          navigate('/')
+        }else if(response.status===401){
           enqueueSnackbar('Invalid credentials', { variant: 'error' });
         } else if (response.status === 404) {
           enqueueSnackbar('User not Registered', { variant: 'error' });
@@ -39,6 +42,7 @@ function Login({setUser, setIsLoggedIn}) {
           return response.json(); 
         }
       })
+      .then()
       .then((data) =>{
         if(data)
        { setUser(data)
