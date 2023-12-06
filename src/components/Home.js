@@ -22,7 +22,7 @@ const Home = () => {
           </h1>
         </div>
         <div className="buttons flex flex-col lg:flex-row justify-evenly items-center p-5 w-full lg:w-1/2">
-          <Link to="/orders">
+          <Link to="/ordersform">
             <button className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base mb-4 lg:mb-0">
               Order now
             </button>

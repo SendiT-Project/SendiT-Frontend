@@ -37,7 +37,7 @@ const SignupForm = () => {
       }).then((res) => {
         if (res.status === 201) {
             enqueueSnackbar("Account created successfully", {variant: "success"})
-            navigate("/login")
+            navigate("/")
           setRefreshPage(!refreshPage);
         }else if (res.status === 422){
             enqueueSnackbar("An error occured", {variant: "error"})
