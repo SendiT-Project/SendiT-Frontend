@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const Tracker = ({ user, onUpdateOrder , refresh, setRefresh}) => {
+const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
-  const [editedDestination, setEditedDestination] = useState('');
+  const [editedDestination, setEditedDestination] = useState("");
 
   const handleEditDestination = (orderId, currentDestination) => {
-    console.log('Editing destination for order:', orderId);
+    console.log("Editing destination for order:", orderId);
     setEditingOrderId(orderId);
     setEditedDestination(currentDestination);
   };
 
   const updateOrders = (order) => {
     fetch(`/orders/${order.order_number}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         destination: editedDestination,
@@ -23,16 +23,36 @@ const Tracker = ({ user, onUpdateOrder , refresh, setRefresh}) => {
       .then((response) => response.json())
       .then((updatedOrder) => {
         onUpdateOrder(updatedOrder);
-        setRefresh(!refresh)
+        setRefresh(!refresh);
         setEditingOrderId(null);
       })
       .catch((error) => {
-        console.error('Error updating destination:', error);
+        console.error("Error updating destination:", error);
       });
   };
 
   const handleDestinationChange = (e) => {
     setEditedDestination(e.target.value);
+  };
+  const handleDeleteOrder = (orderId) => {
+    fetch(`/orders/${orderId}`, {
+      method: "DELETE",
+      credentials: "include",
+    })
+      .then((response) => {
+        if (response.ok) {
+          const updatedOrders = user.orders.filter(
+            (order) => order.order_number !== orderId
+          );
+          setRefresh(!refresh);
+          user.setOrders(updatedOrders);
+        } else {
+          console.error("Error deleting order:", response.statusText);
+        }
+      })
+      .catch((error) => {
+        console.error("Error deleting order:", error);
+      });
   };
 
   return (
@@ -48,7 +68,9 @@ const Tracker = ({ user, onUpdateOrder , refresh, setRefresh}) => {
                 <th className="py-2 px-4 text-left border-b">Destination</th>
                 <th className="py-2 px-4 text-left border-b">Status</th>
                 <th className="py-2 px-4 text-left border-b">Weight</th>
-                <th className="py-2 px-4 text-left border-b">Current Location</th>
+                <th className="py-2 px-4 text-left border-b">
+                  Current Location
+                </th>
                 <th className="py-2 px-4 text-left border-b">Actions</th>
               </tr>
             </thead>
@@ -57,7 +79,8 @@ const Tracker = ({ user, onUpdateOrder , refresh, setRefresh}) => {
                 <tr key={order.order_number}>
                   <td className="py-2 px-4 border-b">{order.name_of_parcel}</td>
                   <td className="py-2 px-4 border-b">
-                    {order.status === 'pending' && editingOrderId === order.order_number ? (
+                    {order.status === "pending" &&
+                    editingOrderId === order.order_number ? (
                       <input
                         type="text"
                         value={editedDestination}
@@ -69,9 +92,11 @@ const Tracker = ({ user, onUpdateOrder , refresh, setRefresh}) => {
                   </td>
                   <td className="py-2 px-4 border-b">{order.status}</td>
                   <td className="py-2 px-4 border-b">{order.weight}</td>
-                  <td className="py-2 px-4 border-b">{order.current_location}</td>
                   <td className="py-2 px-4 border-b">
-                    {order.status === 'pending' && (
+                    {order.current_location}
+                  </td>
+                  <td className="py-2 px-4 border-b">
+                    {order.status === "pending" && (
                       <>
                         {editingOrderId === order.order_number ? (
                           <>
@@ -90,12 +115,23 @@ const Tracker = ({ user, onUpdateOrder , refresh, setRefresh}) => {
                           </>
                         ) : (
                           <button
-                            onClick={() => handleEditDestination(order.order_number, order.destination)}
+                            onClick={() =>
+                              handleEditDestination(
+                                order.order_number,
+                                order.destination
+                              )
+                            }
                             className="px-2 py-1 bg-blue-500 text-white rounded"
                           >
                             Edit Destination
                           </button>
                         )}
+                        <button
+                          onClick={() => handleDeleteOrder(order.order_number)}
+                          className="px-2 py-1 ml-2 bg-red-500 text-white rounded"
+                        >
+                          Cancel Order
+                        </button>
                       </>
                     )}
                   </td>
