@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import NavBar from "./components/Navbar";
 import SignUp from "./components/SignUp";
-import Orders from "./components/Orders";
+import OrdersForm from "./components/OrdersForm";
 import Login from "./components/Login";
 import Contact from './components/Contact';
 import { useEffect, useState } from 'react';
@@ -31,7 +31,7 @@ function App() {
       .catch(error => {
         console.log("Error fetching session:", error)
       })
-  }, [users])
+  }, [])
 
   useEffect(() => {
     setLoading(true)
@@ -94,7 +94,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login user={user} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/orders" element={<Orders isLoggedIn={isLoggedIn} />} />
+          <Route path="/ordersform" element={<OrdersForm isLoggedIn={isLoggedIn} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/users" element={<Users users={users} />} />
