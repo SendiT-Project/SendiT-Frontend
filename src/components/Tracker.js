@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Tracker = ({ user, onUpdateOrder }) => {
+const Tracker = ({ user, onUpdateOrder , refresh, setRefresh}) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState('');
 
@@ -23,6 +23,7 @@ const Tracker = ({ user, onUpdateOrder }) => {
       .then((response) => response.json())
       .then((updatedOrder) => {
         onUpdateOrder(updatedOrder);
+        setRefresh(!refresh)
         setEditingOrderId(null);
       })
       .catch((error) => {

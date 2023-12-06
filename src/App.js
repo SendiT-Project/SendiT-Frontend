@@ -19,6 +19,7 @@ function App() {
   const [orders, setOrders] = useState([])
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
+  const [refresh, setRefresh] =useState(false)
   const navigate = useNavigate()
   const location = useLocation();
 
@@ -31,7 +32,7 @@ function App() {
       .catch(error => {
         console.log("Error fetching session:", error)
       })
-  }, [])
+  }, [refresh])
 
   useEffect(() => {
     setLoading(true)
@@ -94,11 +95,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login user={user} setUser={setUser} setIsLoggedIn={setIsLoggedIn} />} />
-          <Route path="/ordersform" element={<OrdersForm isLoggedIn={isLoggedIn} />} />
+          <Route path="/ordersform" element={<OrdersForm isLoggedIn={isLoggedIn} refresh={refresh} setRefresh={setRefresh} />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/users" element={<Users users={users} />} />
-          <Route path="/tracker" element={<Tracker user={user} onUpdateOrder={handleUpdateOrder} />} />
+          <Route path="/tracker" element={<Tracker user={user} refresh={refresh}  setRefresh={setRefresh} onUpdateOrder={handleUpdateOrder} />} />
           <Route
             path="/adminOrders"
             element={
