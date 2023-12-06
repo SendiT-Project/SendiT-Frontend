@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Orders() {
+function Orders({refresh, setRefresh}) {
   const navigate = useNavigate();
   // const {enqueueSnackbar} = useSnackbar
 
@@ -44,6 +44,7 @@ function Orders() {
       })
       .then((data) => {
         setOrderData(data)
+        setRefresh(!refresh)
         alert("Placed an order: ");
         navigate("/tracker");
       })
