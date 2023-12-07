@@ -78,7 +78,6 @@ function App() {
     })
       .then(setUser(null))
       .then(console.log(user))
-      .then(setIsLoggedIn(false))
       .then(enqueueSnackbar("Logged out successfully", { variant: "success" }))
       .then(navigate("/"))
       .catch((error) => {
@@ -107,9 +106,8 @@ function App() {
             path="/login"
             element={
               <Login
-                user={user}
                 setUser={setUser}
-                setIsLoggedIn={setIsLoggedIn}
+                refresh={refresh}
               />
             }
           />
@@ -117,13 +115,12 @@ function App() {
             path="/ordersform"
             element={
               <OrdersForm
-                isLoggedIn={isLoggedIn}
                 refresh={refresh}
                 setRefresh={setRefresh}
               />
             }
           />
-          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp setUser={setUser} refresh={refresh} setRefresh={setRefresh}/>} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/users" element={<Users users={users} />} />
           <Route

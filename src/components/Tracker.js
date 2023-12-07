@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { MdOutlineDeleteForever } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
+import { FaUndoAlt } from "react-icons/fa";
 
 const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState("");
 
   const handleEditDestination = (orderId, currentDestination) => {
-    console.log("Editing destination for order:", orderId);
     setEditingOrderId(orderId);
     setEditedDestination(currentDestination);
   };
@@ -97,8 +99,9 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
                   </td>
                   <td className="py-2 px-4 border-b">
                     {order.status === "pending" && (
-                      <>
+                      <div className="flex">
                         {editingOrderId === order.order_number ? (
+                          
                           <>
                             <button
                               onClick={() => updateOrders(order)}
@@ -106,33 +109,33 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
                             >
                               Save
                             </button>
-                            <button
+                            <FaUndoAlt  className=" text-3xl"
+                                        onClick={() => setEditingOrderId(null)}
+                            />
+                            {/* <button
                               onClick={() => setEditingOrderId(null)}
                               className="px-2 py-1 bg-red-500 text-white rounded"
                             >
-                              Cancel
-                            </button>
+                              Undo
+                            </button> */}
                           </>
                         ) : (
-                          <button
-                            onClick={() =>
-                              handleEditDestination(
-                                order.order_number,
-                                order.destination
-                              )
-                            }
-                            className="px-2 py-1 bg-blue-500 text-white rounded"
-                          >
-                            Edit Destination
-                          </button>
+                          <MdEdit className="cursor-pointer text-2xl text-purple-800 "
+                                    onClick={() => handleEditDestination(order.order_number, order.destination)}  
+                                    title="Edit Order"  
+                          />
                         )}
-                        <button
+                        < MdOutlineDeleteForever className=" text-3xl text-black hover:text-green cursor-pointer hover:text-red-800"
+                                                  onClick={() => handleDeleteOrder(order.order_number)}
+                                                  title="Cancel Order"
+                        />
+                        {/* <button
                           onClick={() => handleDeleteOrder(order.order_number)}
-                          className="px-2 py-1 ml-2 bg-red-500 text-white rounded"
+                          className=" bg-purple-700px-2 py-1 ml-2 bg-red-500 text-white rounded"
                         >
                           Cancel Order
-                        </button>
-                      </>
+                        </button> */}
+                      </div>
                     )}
                   </td>
                 </tr>
