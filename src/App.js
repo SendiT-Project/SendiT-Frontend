@@ -104,23 +104,22 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/login"
-            element={
-              <Login
-                setUser={setUser}
-                refresh={refresh}
-              />
-            }
+            element={<Login setUser={setUser} refresh={refresh} />}
           />
           <Route
             path="/ordersform"
+            element={<OrdersForm refresh={refresh} setRefresh={setRefresh} />}
+          />
+          <Route
+            path="/signup"
             element={
-              <OrdersForm
+              <SignUp
+                setUser={setUser}
                 refresh={refresh}
                 setRefresh={setRefresh}
               />
             }
           />
-          <Route path="/signup" element={<SignUp setUser={setUser} refresh={refresh} setRefresh={setRefresh}/>} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/users" element={<Users users={users} />} />
           <Route
