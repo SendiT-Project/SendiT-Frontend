@@ -17,7 +17,6 @@ function App() {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [orders, setOrders] = useState([]);
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const navigate = useNavigate();
@@ -26,12 +25,14 @@ function App() {
   useEffect(() => {
     fetch("/session", { credentials: "include" })
       .then((r) => r.json())
-      .then((users) => {
-        setUser(users);
+      .then((user) => {
+        setUser(user);
+        console.log(user)
       })
       .catch((error) => {
         console.log("Error fetching session:", error);
       });
+      
   }, [refresh]);
 
   useEffect(() => {
@@ -47,18 +48,7 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("/users", { credentials: "include" })
-      .then((r) => r.json())
-      .then((data) => {
-        setUsers(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log("Error fetching users:", error);
-      });
-  }, []);
+
 
   function handleUpdateOrder(updatedOrder) {
     const updatedOrders = orders.map((order) => {
@@ -90,7 +80,7 @@ function App() {
   );
 
   return (
-    <div className="App bg-color-primary px-8 sm:px-8 md:px-20 lg:px-30 py-12">
+    // <div className="App bg-color-primary px-8 sm:px-8 md:px-20 lg:px-30 py-12">
       <div className="bg-color-secondary p-8 mx-4">
         {isNavbarFooterVisible && (
           <NavBar
@@ -122,7 +112,7 @@ function App() {
           />
           <Route path="/signup" element={<SignUp setUser={setUser} refresh={refresh} setRefresh={setRefresh}/>} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/users" element={<Users users={users} />} />
+          <Route path="/users" element={<Users setLoading={setLoading} />} />
           <Route
             path="/tracker"
             element={
@@ -154,7 +144,7 @@ function App() {
         </Routes>
         {isNavbarFooterVisible && <Footer />}
       </div>
-    </div>
+    // </div>
   );
 }
 
