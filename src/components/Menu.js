@@ -14,7 +14,7 @@ const Menu = ({ orders, loading, onUpdateOrder}) => {
       </div>
       <div className="menu-links">
         <Link className='text-black font-semibold' to="/users">Users</Link>
-        <Link className='text-black font-semibold' to="/">Orders</Link>
+        <Link className='text-black font-semibold' to="/adminOrders">Orders</Link>
       </div>
       {/* <div className="logout" onclick={ ()=> adminLogOut}>Logout</div> */}
       <adminOrders orders={orders} loading={loading} onUpdateOrder={onUpdateOrder} />
