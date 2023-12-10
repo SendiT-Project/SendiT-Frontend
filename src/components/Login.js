@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function Login({user, setUser, setIsLoggedIn}) {
+function Login({setUser}) {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const initialValues = {
@@ -23,35 +23,40 @@ function Login({user, setUser, setIsLoggedIn}) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials:"include",
+      credentials: "include",
       body: JSON.stringify(values),
     })
       .then((response) => {
         if (response.ok) {
           enqueueSnackbar('Log in Successful', { variant: 'success' });
-          setIsLoggedIn(true)
-          navigate((user && !user.is_admin) ? '/orders': "/adminOrders");
+          // setIsLoggedIn(true);
+          return response.json();
         } else if (response.status === 400) {
           enqueueSnackbar('User already logged in', { variant: 'error' });
-          navigate('/')
-        }else if(response.status===401){
+          return null;
+        } else if (response.status === 401) {
           enqueueSnackbar('Invalid credentials', { variant: 'error' });
+          return null;
         } else if (response.status === 404) {
           enqueueSnackbar('User not Registered', { variant: 'error' });
-        }else {
-          return response.json(); 
+          return null;
+        } else {
+          throw new Error('Unexpected error');
         }
       })
-      .then()
-      .then((data) =>{
-        if(data)
-       { setUser(data)
-        console.log(data)}
+      .then((data) => {
+        if (data) {
+          setUser(data);
+          
+          console.log(data.is_admin);
+          navigate((data && data.is_admin) ? '/adminOrders' : '/ordersform');
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
+  
 
   return (
     <div className="flex items-center justify-center h-screen">

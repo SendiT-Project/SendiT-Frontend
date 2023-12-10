@@ -2,7 +2,7 @@
 import { Link, Outlet } from 'react-router-dom';
 
 
-const NavBar = ({user, isLoggedIn, setIsLoggedIn, onLogout}) => {
+const NavBar = ({user, onLogout}) => {
   return (
     <div className="navbar flex flex-col lg:flex-row justify-between items-center px-8 cursor-pointer mx-4">
       <div className="mb-4 lg:mb-0">
@@ -13,7 +13,7 @@ const NavBar = ({user, isLoggedIn, setIsLoggedIn, onLogout}) => {
         <Link className=" inline-block px-5 py-2 rounded-3xl text-base cursor hover:text-rose-500" to={"/about"}>About Us</Link>
         <Link className=" inline-block px-5 py-2 rounded-3xl text-base cursor hover:text-rose-500" to={user?("/tracker"):("/login")}>Tracker</Link>
         <Link className=" inline-block px-5 py-2 rounded-3xl text-base cursor hover:text-rose-500" to={"/contact"}>Contact Us</Link>
-        {(!isLoggedIn && user) ? (
+        {(user) ? (
           <>
             <span className="text-black">Welcome, {user.username}</span>
             <button onClick={()=>{onLogout()}} className="bg-color-tertiary hover:bg-rose-500 text-white px-5 py-2 rounded-3xl text-base cursor">Logout</button>

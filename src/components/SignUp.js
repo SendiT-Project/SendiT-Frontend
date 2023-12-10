@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Signup.css"
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -6,8 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import { Link } from "react-router-dom";
 
-const SignupForm = () => {
-  const [refreshPage, setRefreshPage] = useState(false);
+const SignupForm = ({setUser, refresh, setRefresh}) => {
   const navigate = useNavigate()
   const {enqueueSnackbar} = useSnackbar()
 
@@ -34,14 +33,18 @@ const SignupForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(values),
-      }).then((res) => {
+      })
+      .then((res) => {
         if (res.status === 201) {
             enqueueSnackbar("Account created successfully", {variant: "success"})
-            navigate("/login")
-          setRefreshPage(!refreshPage);
+            navigate("/")
         }else if (res.status === 422){
             enqueueSnackbar("An error occured", {variant: "error"})
         }
+      })
+      .then(data =>{
+        setUser(data)
+        setRefresh(!refresh)
       })
     },
   });
@@ -72,7 +75,7 @@ const SignupForm = () => {
             value={formik.values.username}
             className="form-control"
           />
-          {formik.errors.name && <p className="error-message">{formik.errors.name}</p>}
+          {formik.errors.name && <p className="error-message">{formik.errors.username}</p>}
         </div>
 
         <div className="form-group">
