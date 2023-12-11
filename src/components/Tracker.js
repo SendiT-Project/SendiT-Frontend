@@ -17,31 +17,6 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
   const [editedDestination, setEditedDestination] = useState("");
   const { enqueueSnackbar } = useSnackbar();
 
-  const getCityCoordinates = (cityName) => {
-    switch (cityName.toLowerCase()) {
-      case "nairobi":
-        return { lat: -1.3026148, lng: 36.828842 };
-      case "garrisa":
-        return { lat: -0.5236333, lng: 40.3564053 };
-      case "meru":
-        return { lat: 0.2254509, lng: 37.7772624 };
-      case "wajir":
-        return { lat: 1.9394402, lng: 40.024736 };
-      case "moyale":
-        return { lat: 2.868853, lng: 38.8320324 };
-      case "mombasa":
-        return { lat: -4.05052, lng: 39.667169 };
-      case "nakuru":
-        return { lat: -0.2802724, lng: 36.0712048 };
-      case "kisumu":
-        return { lat: -0.1029109, lng: 34.7541761 };
-      case "busia":
-        return { lat: 0.3712048, lng: 34.2647952 };
-      default:
-        return { lat: 0, lng: 0 };
-    }
-  };
-
   const handleEditDestination = (orderId, currentDestination) => {
     setEditingOrderId(orderId);
     setEditedDestination(currentDestination);

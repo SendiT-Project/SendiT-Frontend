@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import AdminOrders from "./components/AdminOrders";
 import Tracker from "./components/Tracker";
 import Users from "./components/Users";
+import AboutUs from "./components/About";
 
 function App() {
   const [user, setUser] = useState({});
@@ -23,12 +24,11 @@ function App() {
       .then((r) => r.json())
       .then((user) => {
         setUser(user);
-        console.log(user)
+        console.log(user);
       })
       .catch((error) => {
         console.log("Error fetching session:", error);
       });
-      
   }, [refresh]);
 
   useEffect(() => {
@@ -37,15 +37,13 @@ function App() {
       .then((r) => r.json())
       .then((data) => {
         setOrders(data);
-        setRefresh(!refresh)
+        setRefresh(!refresh);
         setLoading(false);
       })
       .catch((error) => {
         console.log("Error fetching session:", error);
       });
   }, []);
-
-
 
   function handleUpdateOrder(updatedOrder) {
     const updatedOrders = orders.map((order) => {
@@ -58,75 +56,69 @@ function App() {
     setOrders(updatedOrders);
   }
 
-
-
   const isNavbarFooterVisible = !["/adminOrders", "/users"].some((path) =>
     location.pathname.includes(path)
   );
 
   return (
     // <div className="App bg-color-primary px-8 sm:px-8 md:px-20 lg:px-30 py-12">
-      <div className="bg-color-secondary">
-        {isNavbarFooterVisible && (
-          <NavBar
-            user={user}
-            setUser={setUser}
-          />
-        )}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/login"
-            element={<Login setUser={setUser} refresh={refresh} />}
-          />
-          <Route
-            path="/ordersform"
-            element={<OrdersForm refresh={refresh} setRefresh={setRefresh} />}
-          />
-          <Route
-            path="/signup"
-            element={
-              <SignUp
+    <div className="bg-color-secondary">
+      {isNavbarFooterVisible && <NavBar user={user} setUser={setUser} />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<AboutUs />} />
+        <Route
+          path="/login"
+          element={<Login setUser={setUser} refresh={refresh} />}
+        />
+        <Route
+          path="/ordersform"
+          element={<OrdersForm refresh={refresh} setRefresh={setRefresh} />}
+        />
+        <Route
+          path="/signup"
+          element={
+            <SignUp
+              setUser={setUser}
+              refresh={refresh}
+              setRefresh={setRefresh}
+            />
+          }
+        />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/users" element={<Users setLoading={setLoading} />} />
+        <Route
+          path="/tracker"
+          element={
+            <Tracker
+              user={user}
+              refresh={refresh}
+              setRefresh={setRefresh}
+              onUpdateOrder={handleUpdateOrder}
+            />
+          }
+        />
+        <Route
+          path="/adminOrders"
+          element={
+            user && user.is_admin ? (
+              <AdminOrders
                 setUser={setUser}
-                refresh={refresh}
-                setRefresh={setRefresh}
-              />
-            }
-          />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/users" element={<Users setLoading={setLoading} />} />
-          <Route
-            path="/tracker"
-            element={
-              <Tracker
-                user={user}
-                refresh={refresh}
-                setRefresh={setRefresh}
+                orders={orders}
+                loading={loading}
                 onUpdateOrder={handleUpdateOrder}
               />
-            }
-          />
-          <Route
-            path="/adminOrders"
-            element={
-              user && user.is_admin ? (
-                <AdminOrders
-                setUser={setUser}
-                  orders={orders}
-                  loading={loading}
-                  onUpdateOrder={handleUpdateOrder}
-                />
-              ) : (
-                <div className="flex flex-col items-center text-3xl text-red-600 font-extrabold">
-                  <h3>Not Authorized</h3>
-                  <p>You do not have permission to access this page.</p>
-                </div>
-              )
-            }
-          />
-        </Routes>
-        {isNavbarFooterVisible && <Footer />}
-      </div>
+            ) : (
+              <div className="flex flex-col items-center text-3xl text-red-600 font-extrabold">
+                <h3>Not Authorized</h3>
+                <p>You do not have permission to access this page.</p>
+              </div>
+            )
+          }
+        />
+      </Routes>
+      {isNavbarFooterVisible && <Footer />}
+    </div>
     // </div>
   );
 }
