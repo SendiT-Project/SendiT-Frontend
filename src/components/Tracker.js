@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { FaUndoAlt } from "react-icons/fa";
+import { useSnackbar } from "notistack";
 
 const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState("");
+  const {enqueueSnackbar} = useSnackbar()
 
   const handleEditDestination = (orderId, currentDestination) => {
     setEditingOrderId(orderId);
@@ -27,6 +29,7 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
         onUpdateOrder(updatedOrder);
         setRefresh(!refresh);
         setEditingOrderId(null);
+        enqueueSnackbar("Order edited successfully", { variant: "info" });
       })
       .catch((error) => {
         console.error("Error updating destination:", error);
@@ -58,11 +61,10 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col">
-      <h1>Track your orders here</h1>
+    <div className="flex justify-center items-center flex-col my-20">
+      <h1 className="font-primary font-extrabold via-inherit text-orange-400">Track your orders here</h1>
       {user && user.orders ? (
         <>
-          <h1>{user.username}</h1>
           <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
             <thead className="text-start">
               <tr>
