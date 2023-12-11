@@ -7,31 +7,28 @@ import OrdersForm from "./components/OrdersForm";
 import Login from "./components/Login";
 import Contact from "./components/Contact";
 import { useEffect, useState } from "react";
-import { enqueueSnackbar } from "notistack";
 import AdminOrders from "./components/AdminOrders";
 import Tracker from "./components/Tracker";
-import { useNavigate } from "react-router-dom";
 import Users from "./components/Users";
 
 function App() {
   const [user, setUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [orders, setOrders] = useState([]);
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
     fetch("/session", { credentials: "include" })
       .then((r) => r.json())
-      .then((users) => {
-        setUser(users);
+      .then((user) => {
+        setUser(user);
+        console.log(user)
       })
       .catch((error) => {
         console.log("Error fetching session:", error);
       });
+      
   }, [refresh]);
 
   useEffect(() => {
@@ -40,6 +37,7 @@ function App() {
       .then((r) => r.json())
       .then((data) => {
         setOrders(data);
+        setRefresh(!refresh)
         setLoading(false);
       })
       .catch((error) => {
@@ -47,18 +45,7 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    fetch("/users", { credentials: "include" })
-      .then((r) => r.json())
-      .then((data) => {
-        setUsers(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log("Error fetching users:", error);
-      });
-  }, []);
+
 
   function handleUpdateOrder(updatedOrder) {
     const updatedOrders = orders.map((order) => {
@@ -71,33 +58,19 @@ function App() {
     setOrders(updatedOrders);
   }
 
-  function handleLogout() {
-    fetch("/logout", {
-      method: "DELETE",
-      credentials: "include",
-    })
-      .then(setUser(null))
-      .then(console.log(user))
-      .then(enqueueSnackbar("Logged out successfully", { variant: "success" }))
-      .then(navigate("/"))
-      .catch((error) => {
-        console.error("Logout error:", error);
-      });
-  }
+
 
   const isNavbarFooterVisible = !["/adminOrders", "/users"].some((path) =>
     location.pathname.includes(path)
   );
 
   return (
-    <div className="App bg-color-primary px-8 sm:px-8 md:px-20 lg:px-30 py-12">
-      <div className="bg-color-secondary p-8 mx-4">
+    // <div className="App bg-color-primary px-8 sm:px-8 md:px-20 lg:px-30 py-12">
+      <div className="bg-color-secondary">
         {isNavbarFooterVisible && (
           <NavBar
             user={user}
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            onLogout={handleLogout}
+            setUser={setUser}
           />
         )}
         <Routes>
@@ -121,7 +94,7 @@ function App() {
             }
           />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/users" element={<Users users={users} />} />
+          <Route path="/users" element={<Users setLoading={setLoading} />} />
           <Route
             path="/tracker"
             element={
@@ -138,6 +111,7 @@ function App() {
             element={
               user && user.is_admin ? (
                 <AdminOrders
+                setUser={setUser}
                   orders={orders}
                   loading={loading}
                   onUpdateOrder={handleUpdateOrder}
@@ -153,7 +127,7 @@ function App() {
         </Routes>
         {isNavbarFooterVisible && <Footer />}
       </div>
-    </div>
+    // </div>
   );
 }
 

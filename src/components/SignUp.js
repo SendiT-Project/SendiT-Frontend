@@ -75,7 +75,7 @@ const SignupForm = ({setUser, refresh, setRefresh}) => {
             value={formik.values.username}
             className="form-control"
           />
-          {formik.errors.name && <p className="error-message">{formik.errors.name}</p>}
+          {formik.errors.name && <p className="error-message">{formik.errors.username}</p>}
         </div>
 
         <div className="form-group">

@@ -2,12 +2,14 @@ import { useState } from "react";
 import Menu from "./Menu";
 import { MdEdit } from "react-icons/md";
 import { useSnackbar } from "notistack";
+import Admin from'../assets/Admin1.jpg';
 
-const AdminOrders = ({ orders, loading, onUpdateOrder }) => {
+const AdminOrders = ({ orders, loading, onUpdateOrder, setUser}) => {
   const [page, setPage] = useState(1);
   const [ordersPerPage] = useState(10);
   const [editing, setEditing] = useState({}); 
   const {enqueueSnackbar} = useSnackbar()
+  const [searchTerm, setSearchTerm] = useState('');
 
 
   const toggleEditing = (orderId) => {
@@ -55,22 +57,48 @@ const AdminOrders = ({ orders, loading, onUpdateOrder }) => {
     return <h2>Loading...</h2>;
   }
 
+  const handleSearch = (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    setSearchTerm(searchTerm);
+  };
+
+  const filteredOrders = orders.filter((order) => {
+    const status = order.status.toLowerCase();
+    return status.includes(searchTerm);
+  });
+  
+
   return (
-    <div className="mt-5 ml-40">
-      <h1 className="text-2xl font-bold mb-4 text-center">Orders</h1>
-      <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
-        <thead className="text-start">
+    <div className=" ml-auto">
+      <div className="header border mb-10 flex justify-between">
+          <div className="search-bar mt-2 items-center ml-64">
+            <input
+              type="text"
+              placeholder="Search Orders..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="p-2 border border-gray-300 rounded-3xl"
+            />
+          </div>
+          <div className="order-info flex items-center mr-10 mt-2">
+            <img className='w-10 h-10 rounded-full mr-2' src={Admin} alt="User Avatar" />
+            <span className="font-bold text-gray-800">ADMIN</span>
+          </div>
+        </div>
+      <h1 className="text-4xl font-bold mb-4 text-center">Orders</h1>
+      <table className="max-w-full bg-color-secondary border border-gray-300 ml-64 mr-10 my-4 shadow-md">
+        <thead className="text-start ">
           <tr>
-            <th className="py-2 px-4 text-left border-b">Parcel Name</th>
-            <th className="py-2 px-4 text-left border-b">Destination</th>
-            <th className="py-2 px-4 text-left border-b">Current Location</th>
-            <th className="py-2 px-4 text-left border-b">Status</th>
-            <th className="py-2 px-4 text-left border-b">Weight</th>
+            <th className="py-2 px-4 text-left border-b w-1/6">Parcel Name</th>
+            <th className="py-2 px-4 text-left border-b w-1/6">Destination</th>
+            <th className="py-2 px-4 text-left border-b w-1/6">Current Location</th>
+            <th className="py-2 px-4 text-left border-b w-1/6">Status</th>
+            <th className="py-2 px-4 text-left border-b w-1/6">Weight</th>
           </tr>
         </thead>
         <tbody>
-          {orders.slice(page * ordersPerPage - ordersPerPage, page * ordersPerPage).map((order) => (
-            <tr key={order.order_number}>
+          {filteredOrders.slice(page * ordersPerPage - ordersPerPage, page * ordersPerPage).map((order) => (
+            <tr key={order.order_number} className="">
               <td className="py-2 px-4 border-b">{order.name_of_parcel}</td>
               <td className="py-2 px-4 border-b">{order.destination}</td>
               <td className="py-2 px-4 border-b">
@@ -93,20 +121,11 @@ const AdminOrders = ({ orders, loading, onUpdateOrder }) => {
                     <option value="dispatched">Dispatched</option>
                     <option value="delivered">Delivered</option>
                   </select>
-                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg
-                      className="fill-current h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M5 10l5 5 5-5z" clipRule="evenodd" fillRule="evenodd" />
-                    </svg>
-                  </div>
                 </div>
               </td>
               <td className="py-2 px-4 border-b">{order.weight}</td>
               <div className=" flex">
-                {editing[order.order_number] && ( // Render the button only when in editing mode
+                {editing[order.order_number] && (
                   <button
                     onClick={() => updateOrders(order)}
                     className="px-2 py-1 mr-2 bg-green-500 text-white text-sm rounded"
@@ -124,7 +143,7 @@ const AdminOrders = ({ orders, loading, onUpdateOrder }) => {
         </tbody>
       </table>
       <div>
-        <Menu />
+        <Menu setUser={setUser} />
       </div>
       {orders.length > 0 && (
         <div className="mb-4 mt-4 flex justify-center">
