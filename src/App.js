@@ -7,20 +7,16 @@ import OrdersForm from "./components/OrdersForm";
 import Login from "./components/Login";
 import Contact from "./components/Contact";
 import { useEffect, useState } from "react";
-import { enqueueSnackbar } from "notistack";
 import AdminOrders from "./components/AdminOrders";
 import Tracker from "./components/Tracker";
-import { useNavigate } from "react-router-dom";
 import Users from "./components/Users";
 import AboutUs from "./components/AboutUs";
 
 function App() {
   const [user, setUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -42,6 +38,7 @@ function App() {
       .then((r) => r.json())
       .then((data) => {
         setOrders(data);
+        setRefresh(!refresh)
         setLoading(false);
       })
       .catch((error) => {
@@ -62,19 +59,7 @@ function App() {
     setOrders(updatedOrders);
   }
 
-  function handleLogout() {
-    fetch("/logout", {
-      method: "DELETE",
-      credentials: "include",
-    })
-      .then(setUser(null))
-      .then(console.log(user))
-      .then(enqueueSnackbar("Logged out successfully", { variant: "success" }))
-      .then(navigate("/"))
-      .catch((error) => {
-        console.error("Logout error:", error);
-      });
-  }
+
 
   const isNavbarFooterVisible = !["/adminOrders", "/users"].some((path) =>
     location.pathname.includes(path)
@@ -82,13 +67,11 @@ function App() {
 
   return (
     // <div className="App bg-color-primary px-8 sm:px-8 md:px-20 lg:px-30 py-12">
-      <div className="bg-color-secondary p-8 mx-4">
+      <div className="bg-color-secondary">
         {isNavbarFooterVisible && (
           <NavBar
             user={user}
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            onLogout={handleLogout}
+            setUser={setUser}
           />
         )}
         <Routes>
@@ -131,6 +114,7 @@ function App() {
             element={
               user && user.is_admin ? (
                 <AdminOrders
+                setUser={setUser}
                   orders={orders}
                   loading={loading}
                   onUpdateOrder={handleUpdateOrder}

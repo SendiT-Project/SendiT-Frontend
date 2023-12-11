@@ -4,7 +4,7 @@ import { MdEdit } from "react-icons/md";
 import { useSnackbar } from "notistack";
 import Admin from'../assets/Admin1.jpg';
 
-const AdminOrders = ({ orders, loading, onUpdateOrder }) => {
+const AdminOrders = ({ orders, loading, onUpdateOrder, setUser}) => {
   const [page, setPage] = useState(1);
   const [ordersPerPage] = useState(10);
   const [editing, setEditing] = useState({}); 
@@ -69,8 +69,8 @@ const AdminOrders = ({ orders, loading, onUpdateOrder }) => {
   
 
   return (
-    <div className="mt-5 ml-auto">
-      <div className="header border mb-5 flex justify-between">
+    <div className=" ml-auto">
+      <div className="header border mb-10 flex justify-between">
           <div className="search-bar mt-2 items-center ml-64">
             <input
               type="text"
@@ -86,7 +86,7 @@ const AdminOrders = ({ orders, loading, onUpdateOrder }) => {
           </div>
         </div>
       <h1 className="text-4xl font-bold mb-4 text-center">Orders</h1>
-      <table className="max-w-full bg-color-secondary border border-gray-300 ml-60 mr-10 my-4 shadow-md">
+      <table className="max-w-full bg-color-secondary border border-gray-300 ml-64 mr-10 my-4 shadow-md">
         <thead className="text-start ">
           <tr>
             <th className="py-2 px-4 text-left border-b w-1/6">Parcel Name</th>
@@ -143,7 +143,7 @@ const AdminOrders = ({ orders, loading, onUpdateOrder }) => {
         </tbody>
       </table>
       <div>
-        <Menu />
+        <Menu setUser={setUser} />
       </div>
       {orders.length > 0 && (
         <div className="mb-4 mt-4 flex justify-center">
