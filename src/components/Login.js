@@ -4,7 +4,7 @@ import { useSnackbar } from "notistack";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-function Login({user, setUser, setIsLoggedIn}) {
+function Login({setUser}) {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const initialValues = {
@@ -29,7 +29,7 @@ function Login({user, setUser, setIsLoggedIn}) {
       .then((response) => {
         if (response.ok) {
           enqueueSnackbar('Log in Successful', { variant: 'success' });
-          setIsLoggedIn(true);
+          // setIsLoggedIn(true);
           return response.json();
         } else if (response.status === 400) {
           enqueueSnackbar('User already logged in', { variant: 'error' });
@@ -47,6 +47,7 @@ function Login({user, setUser, setIsLoggedIn}) {
       .then((data) => {
         if (data) {
           setUser(data);
+          
           console.log(data.is_admin);
           navigate((data && data.is_admin) ? '/adminOrders' : '/ordersform');
         }
