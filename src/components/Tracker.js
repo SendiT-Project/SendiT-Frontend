@@ -4,10 +4,23 @@ import { MdEdit } from "react-icons/md";
 import { FaUndoAlt } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 
-const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
+const Tracker = ({ user, refresh, setRefresh }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState("");
   const {enqueueSnackbar} = useSnackbar()
+  const [orders, setOrders] = useState([])
+
+
+  function handleUpdateOrder(updatedOrder) {
+    const updatedOrders = orders.map((order) => {
+      if (order.order_number === updatedOrder.order_number) {
+        return updatedOrder;
+      } else {
+        return order;
+      }
+    });
+    setOrders(updatedOrders);
+  }
 
   const handleEditDestination = (orderId, currentDestination) => {
     setEditingOrderId(orderId);
@@ -26,7 +39,7 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
     })
       .then((response) => response.json())
       .then((updatedOrder) => {
-        onUpdateOrder(updatedOrder);
+        handleUpdateOrder(updatedOrder);
         setRefresh(!refresh);
         setEditingOrderId(null);
         enqueueSnackbar("Order edited successfully", { variant: "info" });
@@ -50,7 +63,7 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
             (order) => order.order_number !== orderId
           );
           setRefresh(!refresh);
-          user.setOrders(updatedOrders);
+          setOrders(updatedOrders);
         } else {
           console.error("Error deleting order:", response.statusText);
         }
@@ -114,12 +127,6 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
                             <FaUndoAlt  className=" text-3xl"
                                         onClick={() => setEditingOrderId(null)}
                             />
-                            {/* <button
-                              onClick={() => setEditingOrderId(null)}
-                              className="px-2 py-1 bg-red-500 text-white rounded"
-                            >
-                              Undo
-                            </button> */}
                           </>
                         ) : (
                           <MdEdit className="cursor-pointer text-2xl text-purple-800 "
@@ -131,12 +138,6 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
                                                   onClick={() => handleDeleteOrder(order.order_number)}
                                                   title="Cancel Order"
                         />
-                        {/* <button
-                          onClick={() => handleDeleteOrder(order.order_number)}
-                          className=" bg-purple-700px-2 py-1 ml-2 bg-red-500 text-white rounded"
-                        >
-                          Cancel Order
-                        </button> */}
                       </div>
                     )}
                   </td>
