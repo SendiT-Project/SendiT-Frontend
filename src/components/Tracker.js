@@ -10,12 +10,35 @@ import {
   Polyline,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { useSnackbar } from "notistack";
 
 const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState("");
-  const { enqueueSnackbar } = useSnackbar();
+
+  const getCityCoordinates = (cityName) => {
+    switch (cityName.toLowerCase()) {
+      case "nairobi":
+        return { lat: -1.3026148, lng: 36.828842 };
+      case "garrisa":
+        return { lat: -0.5236333, lng: 40.3564053 };
+      case "meru":
+        return { lat: 0.2254509, lng: 37.7772624 };
+      case "wajir":
+        return { lat: 1.9394402, lng: 40.024736 };
+      case "moyale":
+        return { lat: 2.868853, lng: 38.8320324 };
+      case "mombasa":
+        return { lat: -4.05052, lng: 39.667169 };
+      case "nakuru":
+        return { lat: -0.2802724, lng: 36.0712048 };
+      case "kisumu":
+        return { lat: -0.1029109, lng: 34.7541761 };
+      case "busia":
+        return { lat: 0.3712048, lng: 34.2647952 };
+      default:
+        return { lat: 0, lng: 0 };
+    }
+  };
 
   const handleEditDestination = (orderId, currentDestination) => {
     setEditingOrderId(orderId);
@@ -37,7 +60,6 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
         onUpdateOrder(updatedOrder);
         setRefresh(!refresh);
         setEditingOrderId(null);
-        enqueueSnackbar("Order edited successfully", { variant: "info" });
       })
       .catch((error) => {
         console.error("Error updating destination:", error);
@@ -69,12 +91,11 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col my-20">
-      <h1 className="font-primary font-extrabold via-inherit text-orange-400">
-        Track your orders here
-      </h1>
+    <div className="flex justify-center items-center flex-col">
+      <h1>Track your orders here</h1>
       {user && user.orders ? (
         <>
+          <h1>{user.username}</h1>
           <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
             <thead className="text-start">
               <tr>
@@ -151,7 +172,7 @@ const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
           </table>
 
           <MapContainer
-            center={[0.17687, 37.90833]} // Centered on Kenya
+            center={[1.2921, 36.8219]} // Centered on Kenya
             zoom={7} // Adjust the zoom level as needed
             style={{ height: "400px", width: "100%" }}
             className="rounded-md shadow-md my-8"
