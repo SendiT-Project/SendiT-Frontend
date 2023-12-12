@@ -1,15 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Menu from "./Menu";
 import { MdEdit } from "react-icons/md";
 import { useSnackbar } from "notistack";
 import Admin from'../assets/Admin1.jpg';
 
-const AdminOrders = ({ orders, loading, onUpdateOrder, setUser}) => {
+const AdminOrders = ({loading, setLoading, setUser, refresh, setRefresh}) => {
   const [page, setPage] = useState(1);
   const [ordersPerPage] = useState(10);
   const [editing, setEditing] = useState({}); 
   const {enqueueSnackbar} = useSnackbar()
   const [searchTerm, setSearchTerm] = useState('');
+  const [orders, setOrders] = useState([])
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("/orders", { credentials: "include" })
+      .then((r) => r.json())
+      .then((data) => {
+        setOrders(data);
+        setRefresh(!refresh)
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log("Error fetching session:", error);
+      });
+  }, []);
+
+
+  function handleUpdateOrder(updatedOrder) {
+    const updatedOrders = orders.map((order) => {
+      if (order.order_number === updatedOrder.order_number) {
+        return updatedOrder;
+      } else {
+        return order;
+      }
+    });
+    setOrders(updatedOrders);
+  }
 
 
   const toggleEditing = (orderId) => {
@@ -37,7 +64,7 @@ const AdminOrders = ({ orders, loading, onUpdateOrder, setUser}) => {
     })
       .then((r) => r.json())
     .then((updatedOrder) => {
-      onUpdateOrder(updatedOrder)
+      handleUpdateOrder(updatedOrder)
       enqueueSnackbar("Order edited successfully", { variant: "info" });
       setEditing((prevEditing) => ({ ...prevEditing, [order.order_number]: false }))
     })
@@ -45,12 +72,12 @@ const AdminOrders = ({ orders, loading, onUpdateOrder, setUser}) => {
 
   const handleStatusChange = (e, order) => {
     const updatedOrder = { ...order, status: e.target.value };
-    onUpdateOrder(updatedOrder);
+    handleUpdateOrder(updatedOrder);
   };
 
   const handleLocationChange = (e, order) => {
     const updatedOrder = { ...order, current_location: e.target.value };
-    onUpdateOrder(updatedOrder);
+    handleUpdateOrder(updatedOrder);
   };
 
   if (loading) {
