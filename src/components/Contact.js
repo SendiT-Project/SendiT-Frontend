@@ -24,7 +24,6 @@ const Contact = () => {
 
   return (
     <div className="container mx-auto p-10 bg-color-secondary">
-      <h1 className="text-4xl font-bold mb-4">Contact Us Page</h1>
 
       <div className="mb-8">
         <h2 className="text-2xl font-bold mb-2">Contact Information</h2>
