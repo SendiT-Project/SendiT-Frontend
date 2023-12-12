@@ -26,11 +26,14 @@ function Navbar({user,setUser}) {
 
     <div className='flex flex-row items-center justify-evenly h-full w-11/12 mt-5 space-x-4'>
       <Link className='text-color-white font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/'>Home</Link>
+     
 
       {user ? (
         <div className='flex items-center w-4/6 justify-between flex-end my-4  space-x-4'>
           <Link className=' font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/about'>About</Link>
           <Link className=' font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/tracker'>Tracker</Link>
+          <Link className=' font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/contact'>Contact Us</Link>
+          
           <Button content='Logout' onClick={handleLogOut} className='text-sm hover:bg-color-secondary border text-color-white py-2 px-4' />
           <div className='text-sem text-xl flex my-4'>
             <p className=''>Welcome, {user.username}</p>

@@ -5,11 +5,12 @@ import NavBar from "./components/Navbar";
 import SignUp from "./components/SignUp";
 import OrdersForm from "./components/OrdersForm";
 import Login from "./components/Login";
-import Contact from "./components/Contact";
 import { useEffect, useState } from "react";
 import AdminOrders from "./components/AdminOrders";
 import Tracker from "./components/Tracker";
 import Users from "./components/Users";
+import AboutUs from "./components/AboutUs";
+import Contact from "./components/Contact";
 
 function App() {
   const [user, setUser] = useState({});
@@ -46,6 +47,9 @@ function App() {
         )}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<AboutUs />} />
+        
           <Route
             path="/login"
             element={
@@ -65,7 +69,7 @@ function App() {
             }
           />
           <Route path="/signup" element={<SignUp setUser={setUser} refresh={refresh} setRefresh={setRefresh}/>} />
-          <Route path="/contact" element={<Contact />} />
+          
           <Route path="/users" element={<Users setLoading={setLoading} />} />
           <Route
             path="/tracker"

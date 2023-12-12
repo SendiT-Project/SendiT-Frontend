@@ -5,6 +5,7 @@ import { FaUndoAlt } from "react-icons/fa";
 import { useSnackbar } from "notistack";
 
 const Tracker = ({ user, refresh, setRefresh }) => {
+
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState("");
   const {enqueueSnackbar} = useSnackbar()
@@ -78,6 +79,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
       <h1 className="font-primary font-extrabold via-inherit text-orange-400">Track your orders here</h1>
       {user && user.orders ? (
         <>
+
           <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
             <thead className="text-start">
               <tr>
@@ -145,6 +147,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
               ))}
             </tbody>
           </table>
+
         </>
       ) : (
         <p>Session not created</p>
