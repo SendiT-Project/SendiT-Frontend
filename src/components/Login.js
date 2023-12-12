@@ -48,7 +48,7 @@ function Login({setUser}) {
         if (data) {
           setUser(data);
           
-          console.log(data.is_admin);
+          console.log(data);
           navigate((data && data.is_admin) ? '/adminOrders' : '/ordersform');
         }
       })
