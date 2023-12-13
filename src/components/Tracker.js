@@ -7,9 +7,8 @@ import { useSnackbar } from "notistack";
 const Tracker = ({ user, refresh, setRefresh }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState("");
-  const {enqueueSnackbar} = useSnackbar()
-  const [orders, setOrders] = useState([])
-
+  const { enqueueSnackbar } = useSnackbar();
+  const [orders, setOrders] = useState([]);
 
   function handleUpdateOrder(updatedOrder) {
     const updatedOrders = orders.map((order) => {
@@ -75,7 +74,9 @@ const Tracker = ({ user, refresh, setRefresh }) => {
 
   return (
     <div className="flex justify-center items-center flex-col my-2 min-h-screen">
-      <h1 className="font-primary font-extrabold via-inherit text-orange-400">Track your orders here</h1>
+      <h1 className="font-primary font-extrabold via-inherit text-orange-400">
+        Track your orders here
+      </h1>
       {user && user.orders ? (
         <>
           <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
@@ -116,7 +117,6 @@ const Tracker = ({ user, refresh, setRefresh }) => {
                     {order.status === "pending" && (
                       <div className="flex">
                         {editingOrderId === order.order_number ? (
-                          
                           <>
                             <button
                               onClick={() => updateOrders(order)}
@@ -124,19 +124,27 @@ const Tracker = ({ user, refresh, setRefresh }) => {
                             >
                               Save
                             </button>
-                            <FaUndoAlt  className=" text-3xl"
-                                        onClick={() => setEditingOrderId(null)}
+                            <FaUndoAlt
+                              className=" text-3xl"
+                              onClick={() => setEditingOrderId(null)}
                             />
                           </>
                         ) : (
-                          <MdEdit className="cursor-pointer text-2xl text-purple-800 "
-                                    onClick={() => handleEditDestination(order.order_number, order.destination)}  
-                                    title="Edit Order"  
+                          <MdEdit
+                            className="cursor-pointer text-2xl text-purple-800 "
+                            onClick={() =>
+                              handleEditDestination(
+                                order.order_number,
+                                order.destination
+                              )
+                            }
+                            title="Edit Order"
                           />
                         )}
-                        < MdOutlineDeleteForever className=" text-3xl text-black hover:text-green cursor-pointer hover:text-red-800"
-                                                  onClick={() => handleDeleteOrder(order.order_number)}
-                                                  title="Cancel Order"
+                        <MdOutlineDeleteForever
+                          className=" text-3xl text-black hover:text-green cursor-pointer hover:text-red-800"
+                          onClick={() => handleDeleteOrder(order.order_number)}
+                          title="Cancel Order"
                         />
                       </div>
                     )}
@@ -155,4 +163,4 @@ const Tracker = ({ user, refresh, setRefresh }) => {
 
 export default Tracker;
 
-
+// updated tracker
