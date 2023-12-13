@@ -29,7 +29,6 @@ function Login({setUser}) {
       .then((response) => {
         if (response.ok) {
           enqueueSnackbar('Log in Successful', { variant: 'success' });
-          // setIsLoggedIn(true);
           return response.json();
         } else if (response.status === 400) {
           enqueueSnackbar('User already logged in', { variant: 'error' });
@@ -48,8 +47,8 @@ function Login({setUser}) {
         if (data) {
           setUser(data);
           
-          console.log(data.is_admin);
-          navigate((data && data.is_admin) ? '/adminOrders' : '/ordersform');
+          console.log(data);
+          navigate((data && data.admin) ? '/adminOrders' : '/ordersform');
         }
       })
       .catch((error) => {
@@ -125,3 +124,5 @@ function Login({setUser}) {
 }
 
 export default Login;
+
+// pushing this to feature/users again

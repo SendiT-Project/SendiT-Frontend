@@ -13,7 +13,6 @@ import Users from "./components/Users";
 
 function App() {
   const [user, setUser] = useState({});
-  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const location = useLocation();
@@ -30,34 +29,6 @@ function App() {
       });
       
   }, [refresh]);
-
-  useEffect(() => {
-    setLoading(true);
-    fetch("/orders", { credentials: "include" })
-      .then((r) => r.json())
-      .then((data) => {
-        setOrders(data);
-        setRefresh(!refresh)
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log("Error fetching session:", error);
-      });
-  }, []);
-
-
-
-  function handleUpdateOrder(updatedOrder) {
-    const updatedOrders = orders.map((order) => {
-      if (order.order_number === updatedOrder.order_number) {
-        return updatedOrder;
-      } else {
-        return order;
-      }
-    });
-    setOrders(updatedOrders);
-  }
-
 
 
   const isNavbarFooterVisible = !["/adminOrders", "/users"].some((path) =>
@@ -95,7 +66,7 @@ function App() {
           />
           <Route path="/signup" element={<SignUp setUser={setUser} refresh={refresh} setRefresh={setRefresh}/>} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/users" element={<Users setLoading={setLoading} />} />
+          <Route path="/users" element={<Users setLoading={setLoading} refresh={refresh} setRefresh={setRefresh} />} />
           <Route
             path="/tracker"
             element={
@@ -103,19 +74,20 @@ function App() {
                 user={user}
                 refresh={refresh}
                 setRefresh={setRefresh}
-                onUpdateOrder={handleUpdateOrder}
+                
               />
             }
           />
           <Route
             path="/adminOrders"
             element={
-              user && user.is_admin ? (
+              user && user.admin ? (
                 <AdminOrders
-                setUser={setUser}
-                  orders={orders}
+                  setUser={setUser}
                   loading={loading}
-                  onUpdateOrder={handleUpdateOrder}
+                  setLoading={setLoading}
+                  refresh={refresh}
+                  setRefresh={setRefresh}
                 />
               ) : (
                 <div className="flex flex-col items-center text-3xl text-red-600 font-extrabold">
