@@ -2,24 +2,43 @@ import React, { useState } from "react";
 import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { FaUndoAlt } from "react-icons/fa";
-import { useSnackbar } from "notistack";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
+} from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
-const Tracker = ({ user, refresh, setRefresh }) => {
+const Tracker = ({ user, onUpdateOrder, refresh, setRefresh }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
   const [editedDestination, setEditedDestination] = useState("");
-  const { enqueueSnackbar } = useSnackbar();
-  const [orders, setOrders] = useState([]);
 
-  function handleUpdateOrder(updatedOrder) {
-    const updatedOrders = orders.map((order) => {
-      if (order.order_number === updatedOrder.order_number) {
-        return updatedOrder;
-      } else {
-        return order;
-      }
-    });
-    setOrders(updatedOrders);
-  }
+  const getCityCoordinates = (cityName) => {
+    switch (cityName.toLowerCase()) {
+      case "nairobi":
+        return { lat: -1.3026148, lng: 36.828842 };
+      case "garrisa":
+        return { lat: -0.5236333, lng: 40.3564053 };
+      case "meru":
+        return { lat: 0.2254509, lng: 37.7772624 };
+      case "wajir":
+        return { lat: 1.9394402, lng: 40.024736 };
+      case "moyale":
+        return { lat: 2.868853, lng: 38.8320324 };
+      case "mombasa":
+        return { lat: -4.05052, lng: 39.667169 };
+      case "nakuru":
+        return { lat: -0.2802724, lng: 36.0712048 };
+      case "kisumu":
+        return { lat: -0.1029109, lng: 34.7541761 };
+      case "busia":
+        return { lat: 0.3712048, lng: 34.2647952 };
+      default:
+        return { lat: 0, lng: 0 };
+    }
+  };
 
   const handleEditDestination = (orderId, currentDestination) => {
     setEditingOrderId(orderId);
@@ -27,7 +46,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
   };
 
   const updateOrders = (order) => {
-    fetch(`https://sendit-backend-lje2.onrender.com/orders/${order.order_number}`, {
+    fetch(`/orders/${order.order_number}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -38,10 +57,9 @@ const Tracker = ({ user, refresh, setRefresh }) => {
     })
       .then((response) => response.json())
       .then((updatedOrder) => {
-        handleUpdateOrder(updatedOrder);
+        onUpdateOrder(updatedOrder);
         setRefresh(!refresh);
         setEditingOrderId(null);
-        enqueueSnackbar("Order edited successfully", { variant: "info" });
       })
       .catch((error) => {
         console.error("Error updating destination:", error);
@@ -52,7 +70,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
     setEditedDestination(e.target.value);
   };
   const handleDeleteOrder = (orderId) => {
-    fetch(`https://sendit-backend-lje2.onrender.com/orders/${orderId}`, {
+    fetch(`/orders/${orderId}`, {
       method: "DELETE",
       credentials: "include",
     })
@@ -62,7 +80,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
             (order) => order.order_number !== orderId
           );
           setRefresh(!refresh);
-          setOrders(updatedOrders);
+          user.setOrders(updatedOrders);
         } else {
           console.error("Error deleting order:", response.statusText);
         }
@@ -73,12 +91,11 @@ const Tracker = ({ user, refresh, setRefresh }) => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col my-2 min-h-screen">
-      <h1 className="font-primary font-extrabold via-inherit text-orange-400">
-        Track your orders here
-      </h1>
+    <div className="flex justify-center items-center flex-col">
+      <h1>Track your orders here</h1>
       {user && user.orders ? (
         <>
+          <h1>{user.username}</h1>
           <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
             <thead className="text-start">
               <tr>
@@ -153,6 +170,46 @@ const Tracker = ({ user, refresh, setRefresh }) => {
               ))}
             </tbody>
           </table>
+
+          <MapContainer
+            center={[1.2921, 36.8219]} // Centered on Kenya
+            zoom={7} // Adjust the zoom level as needed
+            style={{ height: "400px", width: "100%" }}
+            className="rounded-md shadow-md my-8"
+          >
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {user.orders.map((order) => (
+              <React.Fragment key={order.order_number}>
+                {order.destination && order.current_location && (
+                  <>
+                    {Object.keys(getCityCoordinates(order.destination)).map(
+                      (city) => {
+                        const coordinates = getCityCoordinates(city);
+                        if (coordinates) {
+                          const { lat, lng } = coordinates;
+                          return (
+                            <Marker key={city} position={[lat, lng]}>
+                              <Popup>{`City: ${city}`}</Popup>
+                            </Marker>
+                          );
+                        }
+                        return null;
+                      }
+                    )}
+                    <Polyline
+                      positions={[
+                        getCityCoordinates(order.current_location),
+                        getCityCoordinates(order.destination),
+                      ]}
+                      color="blue"
+                      weight={5} // Adjust the weight to make the line thicker
+                      arrowheads="true"
+                    />
+                  </>
+                )}
+              </React.Fragment>
+            ))}
+          </MapContainer>
         </>
       ) : (
         <p>Session not created</p>
@@ -162,5 +219,3 @@ const Tracker = ({ user, refresh, setRefresh }) => {
 };
 
 export default Tracker;
-
-// updated tracker
