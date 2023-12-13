@@ -27,7 +27,7 @@ function Orders({refresh, setRefresh}) {
   };
 
   const handleSubmit = () => {
-    fetch("https://sendit-backend-lje2.onrender.com/orders", {
+    fetch("/orders", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
