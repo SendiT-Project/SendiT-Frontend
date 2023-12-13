@@ -8,7 +8,7 @@ function Navbar({user,setUser}) {
   const navigate=useNavigate()
 
   function handleLogOut(){
-    fetch("https://sendit-backend-lje2.onrender.com/logout",{
+    fetch("/logout",{
       method: 'DELETE'
     })
     .then(setUser(null))
@@ -18,7 +18,7 @@ function Navbar({user,setUser}) {
 
   
   return (
-    <div className='bg-color-primary rounded-lg h-16 '>
+    <div className='bg-color-primary rounded-lg h-16 flex sm:flex-row'>
         <div className='rounded-sm flex flex-row justify-between items-center h-full w-11/12 px-4'>
           <p className="text-color-white font-medium text-3xl flex items-center">
           SendiT
@@ -30,16 +30,16 @@ function Navbar({user,setUser}) {
       {user ? (
         <div className='flex items-center w-4/6 justify-between flex-end my-4  space-x-4'>
           <Link className=' font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/about'>About</Link>
+          <Link className='font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/contact'>Contact us</Link>
           <Link className=' font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/tracker'>Tracker</Link>
-          <Button content='Logout' onClick={handleLogOut} className='text-sm hover:bg-color-secondary border text-color-white py-2 px-4' />
+          <Button content='Logout' onClick={handleLogOut} className=' hover:bg-color-secondary py-2 px-4' />
           <div className='text-sem text-xl flex my-4'>
             <p className=''>Welcome, {user.username}</p>
           </div>
         </div>
       ) : (
         <div className='w-1/3 m-auto flex justify-between'>
-          <Link className='text-color-white font-medium hover:bg-color-secondary p-2 ' to='/login'>LogIn</Link>
-          
+          <Link className='text-color-white font-medium hover:bg-color-secondary rounded-3xl p-2 ' to='/login'>LogIn</Link>
         </div>
       )}
     </div>

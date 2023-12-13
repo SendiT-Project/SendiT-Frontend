@@ -18,7 +18,7 @@ function Login({setUser}) {
   });
 
   const onSubmit = (values) => {
-    fetch("https://sendit-backend-lje2.onrender.com/login", {
+    fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,9 +59,9 @@ function Login({setUser}) {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-color-secondary p-10 border-solid border-2 flex items-center flex-col">
+      <div className="bg-color-secondary p-12 mt-0 border-solid border-2 flex items-center flex-col shadow-lg border-gray-300">
         <h2 className="text-2xl font-semibold mb-1">Login</h2>
-        <div className="max-w-md mb-5 mt-1 p-6 bg-color-secondary rounded-md shadow-md border-2">
+        <div className="max-w-md mb-5 mt-4 p-6 bg-color-secondary rounded-md shadow-lg border-2 border-gray-300">
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}

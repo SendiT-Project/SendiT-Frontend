@@ -28,7 +28,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
   };
 
   const updateOrders = (order) => {
-    fetch(`https://sendit-backend-lje2.onrender.com/orders/${order.order_number}`, {
+    fetch(`/orders/${order.order_number}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -74,8 +74,8 @@ const Tracker = ({ user, refresh, setRefresh }) => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col my-2 min-h-screen">
-      <h1 className="font-primary font-extrabold via-inherit text-orange-400">Track your orders here</h1>
+    <div className=" my-10 min-h-screen p-10">
+      <h1 className="font-primary font-extrabold text-orange-400 text-center text-xl">Track your orders here</h1>
       {user && user.orders ? (
         <>
           <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">

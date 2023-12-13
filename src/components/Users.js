@@ -11,7 +11,7 @@ const Users = ({setLoading}) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://sendit-backend-lje2.onrender.com/users", { credentials: "include" })
+    fetch("/users", { credentials: "include" })
       .then((r) => r.json())
       .then((data) => {
         setUsers(data);
@@ -37,7 +37,7 @@ const Users = ({setLoading}) => {
   return (
     <div> 
       <Menu />
-      <div className='page-contents ml-auto '>
+      <div className='page-contents ml-auto min-h-screen '>
         <div className=' px-10 py-5 ml-56'>
         <div className="header border mb-10 flex justify-between">
             <div className="search-bar items-center ">
