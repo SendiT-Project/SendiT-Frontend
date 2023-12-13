@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import AdminOrders from "./components/AdminOrders";
 import Tracker from "./components/Tracker";
 import Users from "./components/Users";
+import AboutUs from "./components/AboutUs";
 
 function App() {
   const [user, setUser] = useState({});
@@ -46,6 +47,7 @@ function App() {
         )}
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<AboutUs />} />
           <Route
             path="/login"
             element={

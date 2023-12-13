@@ -1,6 +1,7 @@
-import hero from "../assets/hero.svg";
+import React from "react";
 import { Link } from "react-router-dom";
 import ServicesCard from "./ServiceCard";
+
 
 const Home = () => {
 
@@ -34,9 +35,8 @@ const Home = () => {
           </Link>
         </div>
       </div>
-      <div className="hero flex justify-end py-8 lg:w-1/2">
-        <img src={hero} alt="hero" className="m-auto" />
-      </div>
+     
+      
     </div>
          <div className="flex flex-col">
          <ServicesCard />
