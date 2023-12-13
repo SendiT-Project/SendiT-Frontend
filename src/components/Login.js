@@ -29,7 +29,6 @@ function Login({setUser}) {
       .then((response) => {
         if (response.ok) {
           enqueueSnackbar('Log in Successful', { variant: 'success' });
-          // setIsLoggedIn(true);
           return response.json();
         } else if (response.status === 400) {
           enqueueSnackbar('User already logged in', { variant: 'error' });
@@ -49,7 +48,7 @@ function Login({setUser}) {
           setUser(data);
           
           console.log(data);
-          navigate((data && data.is_admin) ? '/adminOrders' : '/ordersform');
+          navigate((data && data.admin) ? '/adminOrders' : '/ordersform');
         }
       })
       .catch((error) => {

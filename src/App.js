@@ -66,7 +66,7 @@ function App() {
           />
           <Route path="/signup" element={<SignUp setUser={setUser} refresh={refresh} setRefresh={setRefresh}/>} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/users" element={<Users setLoading={setLoading} />} />
+          <Route path="/users" element={<Users setLoading={setLoading} refresh={refresh} setRefresh={setRefresh} />} />
           <Route
             path="/tracker"
             element={
@@ -81,7 +81,7 @@ function App() {
           <Route
             path="/adminOrders"
             element={
-              user && user.is_admin ? (
+              user && user.admin ? (
                 <AdminOrders
                   setUser={setUser}
                   loading={loading}
