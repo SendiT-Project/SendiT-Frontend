@@ -28,7 +28,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
   };
 
   const updateOrders = (order) => {
-    fetch(`/orders/${order.order_number}`, {
+    fetch(`https://sendit-backend-lje2.onrender.com/orders/${order.order_number}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
     setEditedDestination(e.target.value);
   };
   const handleDeleteOrder = (orderId) => {
-    fetch(`/orders/${orderId}`, {
+    fetch(`https://sendit-backend-lje2.onrender.com/orders/${orderId}`, {
       method: "DELETE",
       credentials: "include",
     })

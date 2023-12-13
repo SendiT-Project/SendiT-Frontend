@@ -11,7 +11,7 @@ const Users = ({setLoading}) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("/users", { credentials: "include" })
+    fetch("https://sendit-backend-lje2.onrender.com/users", { credentials: "include" })
       .then((r) => r.json())
       .then((data) => {
         setUsers(data);
