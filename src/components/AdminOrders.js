@@ -14,7 +14,7 @@ const AdminOrders = ({loading, setLoading, setUser, refresh, setRefresh}) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("/orders", { credentials: "include" })
+    fetch("https://sendit-backend-lje2.onrender.com/orders", { credentials: "include" })
       .then((r) => r.json())
       .then((data) => {
         setOrders(data);
@@ -52,7 +52,7 @@ const AdminOrders = ({loading, setLoading, setUser, refresh, setRefresh}) => {
   };
 
   function updateOrders(order) {
-    fetch(`/orders/${order.order_number}`, {
+    fetch(`https://sendit-backend-lje2.onrender.com/orders/${order.order_number}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
