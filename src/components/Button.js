@@ -8,8 +8,7 @@ function Button({content, className, type='button', onClick}) {
                 p-5
                 mx-3
                 font-bold
-                border
-                border-emerald-950
+      
                 bg-rich-black 
                 hover:bg-color-secondary 
                 hover:text-rich-black 
