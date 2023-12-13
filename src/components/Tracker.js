@@ -74,7 +74,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col my-20">
+    <div className="flex justify-center items-center flex-col my-2 min-h-screen">
       <h1 className="font-primary font-extrabold via-inherit text-orange-400">Track your orders here</h1>
       {user && user.orders ? (
         <>

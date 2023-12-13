@@ -96,7 +96,7 @@ const AdminOrders = ({loading, setLoading, setUser, refresh, setRefresh}) => {
   
 
   return (
-    <div className=" ml-auto">
+    <div className=" ml-auto min-h-screen">
       <div className="header border mb-10 flex justify-between">
           <div className="search-bar mt-2 items-center ml-64">
             <input
