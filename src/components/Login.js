@@ -52,7 +52,7 @@ function Login({setUser}) {
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error(error.message);
       });
   };
   
