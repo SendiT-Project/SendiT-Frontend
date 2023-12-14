@@ -25,9 +25,9 @@ function App() {
         setUser(user);
         console.log(user)
       })
-      .catch((error) => {
-        console.log("Error fetching session:", error);
-      });
+      // .catch((error) => {
+      //   console.log("Error fetching session:", error);
+      // });
       
   }, [refresh]);
 
