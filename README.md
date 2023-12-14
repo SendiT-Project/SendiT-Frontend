@@ -1,71 +1,53 @@
-# Getting Started with Create React App
+# Project: SendiT Frontend
+This project is the frontend for the SendiT website, built using React. The purpose of this website is to allow users to track and manage their parcels.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# Installation, Setup, and Configuration
+To install and set up the project, follow these steps:
 
-In the project directory, you can run:
+# Clone the repository:
+git clone https://github.com/SendiT-Project/SendiT-Frontend.git
 
-### `npm start`
+# Navigate to the project directory:
+cd SendiT-Frontend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Install the necessary dependencies:
+npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Start the development server:
+   npm start
+The development server will start and open the website in your default web browser.
 
-### `npm test`
+# Components and Dependencies
+The codebase is structured into the following components:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* NavBar: The navigation bar that is present on every page of the website.
+* Footer: The footer that is present on every page of the website.
+* Home: The homepage of the website.
+* SignUp: The page where users can sign up for an account.
+* Login: The page where users can log in to their accounts.
+* Tracker: The page where users can track the location of their parcels.
+* About:The page providing information about the company
+* AdminOrders:The page related to handling and managing orders from an administrative perspective in the  application.
+* AuthContext:The page that involves managing user authentication state, providing authentication-related data, and possibly handling authentication actions.
+* AuthContextProvider:The page responsible for providing the authentication context to the components within your application.
+* Button:It is a common UI element used to trigger actions or events when clicked. 
+* Contact:The page allowing users to get in touch with the application administrators or support team. 
+* Menu:A menu typically refers to a navigation menu in a user interface. It may include links to different sections of the application, providing users with a way to navigate between pages.
+* OrderForm:This is likely a component representing a form for users to place orders. 
+* ServiceCard:This is a component displaying information about a specific service offered by your application. 
+* Users:It typically refer to entities within your application representing individuals who have registered or are interacting with the system.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Testing
+This project includes unit tests for its components. To run the tests, execute the following command:
+   npm test
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Contributors
+* [Medrine Mulindi](https://github.com/Mulindi123)
+* [Mucsin Yusuf](https://github.com/muxsinyusuf)
+* [Cynthia Oloo](https://github.com/cynthiawuor)
+* [Derrick Ochuodho](https://github.com/Dochuodho)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# SendiT-Frontend
+# License
+This project is licensed under the MIT License. For more information, refer to the LICENSE file.
