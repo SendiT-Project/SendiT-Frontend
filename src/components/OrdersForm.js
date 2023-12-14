@@ -1,10 +1,11 @@
 // import { useSnackbar } from "notistack";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 function Orders({refresh, setRefresh}) {
   const navigate = useNavigate();
-  // const {enqueueSnackbar} = useSnackbar
+  const {enqueueSnackbar} = useSnackbar()
 
   const [orderData, setOrderData] = useState({
     name_of_parcel: "",
@@ -38,14 +39,16 @@ function Orders({refresh, setRefresh}) {
         if (response.status === 201) {
           return response.json();
           
-        } else {
-          throw new Error("Posting order failed: " + response.status);
+        } else if (response.status === 401) {
+          enqueueSnackbar('You must be logged in to create an order', { variant: 'error' });
+          navigate('/login')
+          return Promise.reject('Not logged in');
         }
       })
       .then((data) => {
         setOrderData(data)
         setRefresh(!refresh)
-        alert("Placed an order: ");
+        enqueueSnackbar('Order created successfully', {variant:'success'})
         navigate("/tracker");
       })
       .catch((error) => {
