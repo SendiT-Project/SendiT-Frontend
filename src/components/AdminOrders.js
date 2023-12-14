@@ -4,7 +4,7 @@ import { MdEdit } from "react-icons/md";
 import { useSnackbar } from "notistack";
 import Admin from'../assets/Admin1.jpg';
 
-const AdminOrders = ({loading, setLoading, setUser, refresh, setRefresh}) => {
+const AdminOrders = ({user, loading, setLoading, setUser, refresh, setRefresh}) => {
   const [page, setPage] = useState(1);
   const [ordersPerPage] = useState(10);
   const [editing, setEditing] = useState({}); 
@@ -109,7 +109,7 @@ const AdminOrders = ({loading, setLoading, setUser, refresh, setRefresh}) => {
           </div>
           <div className="order-info flex items-center mr-10 mt-2">
             <img className='w-10 h-10 rounded-full mr-2' src={Admin} alt="User Avatar" />
-            <span className="font-bold text-gray-800">ADMIN</span>
+            <span className="font-bold text-gray-800">{user.username.toUpperCase()}</span>
           </div>
         </div>
       <h1 className="text-4xl font-bold mb-4 text-center">Orders</h1>

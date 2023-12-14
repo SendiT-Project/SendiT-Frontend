@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Admin from'../assets/Admin1.jpg';
 import Menu from './Menu';
 
-const Users = ({setLoading}) => {
+const Users = ({user,setUser, setLoading}) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [users, setUsers] = useState([]);
 
@@ -36,7 +36,7 @@ const Users = ({setLoading}) => {
 
   return (
     <div> 
-      <Menu />
+      <Menu setUser={setUser}/>
       <div className='page-contents ml-auto min-h-screen '>
         <div className=' px-10 py-5 ml-56'>
         <div className="header border mb-10 flex justify-between">
@@ -51,7 +51,7 @@ const Users = ({setLoading}) => {
             </div>
             <div className="user-info flex items-center mr-10 mt-2">
               <img className='w-10 h-10 rounded-full mr-2' src={Admin} alt="User Avatar" />
-              <span className="font-bold text-gray-800">ADMIN</span>
+              <span className="font-bold text-gray-800">{user.username.toUpperCase()}</span>
             </div>
           </div>
           <div>
