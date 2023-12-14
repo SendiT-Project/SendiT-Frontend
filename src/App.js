@@ -18,6 +18,7 @@ function App() {
   const [refresh, setRefresh] = useState(false);
   const location = useLocation();
 
+  //Adding these changes to deployment
   useEffect(() => {
     fetch("/session", { credentials: "include" })
       .then((response) => {
