@@ -18,18 +18,16 @@ function App() {
   const [refresh, setRefresh] = useState(false);
   const location = useLocation();
 
-  //Adding these changes to deployment
   useEffect(() => {
     fetch("/session", { credentials: "include" })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Error fetching session: ${response.statusText}`);
-        }
+        console.log("Response status:", response.status);
         return response.json();
       })
       .then((user) => {
+        console.log("User", user);
         setUser(user);
-        console.log(user);
+        
       })
       .catch((error) => {
         console.log(error.message); 
