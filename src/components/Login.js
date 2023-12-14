@@ -51,9 +51,9 @@ function Login({setUser}) {
           navigate((data && data.admin) ? '/adminOrders' : '/ordersform');
         }
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      // .catch((error) => {
+      //   console.error("Error:", error);
+      // });
   };
   
 
