@@ -3,6 +3,8 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { FaUndoAlt } from "react-icons/fa";
 import { useSnackbar } from "notistack";
+import Map from "../Map";
+import "leaflet/dist/leaflet.css";
 
 const Tracker = ({ user, refresh, setRefresh }) => {
   const [editingOrderId, setEditingOrderId] = useState(null);
@@ -74,11 +76,12 @@ const Tracker = ({ user, refresh, setRefresh }) => {
   };
 
   return (
-    <div className=" my-10 min-h-screen p-10">
+    <div className=" my-10 min-h-screen p-4 lg:p-10">
       <h1 className="font-primary font-extrabold text-orange-400 text-center text-xl">Track your orders here</h1>
       {user && user.orders ? (
         <>
-          <table className="min-w-full bg-color-secondary border border-gray-300 mx-4 my-4">
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-color-secondary border border-gray-300 mx-auto my-4 text-sm md:text-base lg:text-lg sm:mx-auto">
             <thead className="text-start">
               <tr>
                 <th className="py-2 px-4 text-left border-b">Name of Parcel</th>
@@ -145,6 +148,8 @@ const Tracker = ({ user, refresh, setRefresh }) => {
               ))}
             </tbody>
           </table>
+        </div>
+         <Map user={user}/>
         </>
       ) : (
         <p>Session not created</p>
