@@ -20,16 +20,21 @@ function App() {
 
   useEffect(() => {
     fetch("/session", { credentials: "include" })
-      .then((r) => r.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Error fetching session: ${response.statusText}`);
+        }
+        return response.json();
+      })
       .then((user) => {
         setUser(user);
-        console.log(user)
+        console.log(user);
       })
-      // .catch((error) => {
-      //   console.log("Error fetching session:", error);
-      // });
-      
+      .catch((error) => {
+        console.log(error.message); 
+      });
   }, [refresh]);
+  
 
 
   const isNavbarFooterVisible = !["/adminOrders", "/users"].some((path) =>
