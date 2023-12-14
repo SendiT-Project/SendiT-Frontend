@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { getCityCoordinates } from "./helpers";
+// import { GrLocation } from "react-icons/gr";
+
+
+const markerIcon = new L.Icon({
+  iconUrl: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png', 
+  iconSize: [32, 32], 
+  iconAnchor: [16, 32], 
+  popupAnchor: [0, -32],
+});
 
 const Map = ({ user }) => {
   const [destinationCoordinates, setDestinationCoordinates] = useState([]);
@@ -30,11 +40,13 @@ const Map = ({ user }) => {
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
       {destinationCoordinates.map((destination) => (
-        <React.Fragment key={destination.orderNumber}>
-          <Marker position={destination.coordinates}>
-            <Popup>{`Order ${destination.orderNumber} destination`}</Popup>
-          </Marker>
-        </React.Fragment>
+        <Marker
+          key={destination.orderNumber}
+          position={destination.coordinates}
+          icon={markerIcon}
+        >
+          <Popup>{`Order ${destination.orderNumber} destination`}</Popup>
+        </Marker>
       ))}
 
       {user.orders.map((order) => (

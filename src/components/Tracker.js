@@ -3,7 +3,7 @@ import { MdOutlineDeleteForever } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { FaUndoAlt } from "react-icons/fa";
 import { useSnackbar } from "notistack";
-import Map from "../Map";
+import Map from "./Map";
 import "leaflet/dist/leaflet.css";
 
 const Tracker = ({ user, refresh, setRefresh }) => {
