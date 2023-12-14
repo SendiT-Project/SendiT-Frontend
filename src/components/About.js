@@ -6,8 +6,8 @@ import address from "../assets/address.svg";
 
 const AboutUs = () => {
   return (
-    <div className="mt-20">
-      <div className="about-us-content">
+    <div className="mt-20 ">
+      <div className="about-us-content sm:px-2">
         <h2 className="text-3xl text-start text-purple-700 font-bold font-primary mb-4">
             Welcome to SendiT Delivery
         </h2>
@@ -21,7 +21,7 @@ const AboutUs = () => {
                     At SendiT, our mission is to provide a seamless and dependable courier service for individuals and businesses alike. We strive to make parcel delivery hassle-free by offering transparent pricing based on weight, ensuring that your packages reach their destinations safely and on time.
                 </p>
             </div>
-            <div className='image1 ml-10 justify-center'>
+            <div className='image1 ml-10 flex justify-center'>
                 <img src={pic} alt="3" className="w-full h-auto" />
             </div>
         </div>
@@ -33,7 +33,7 @@ const AboutUs = () => {
               What sets the SendiT experience apart is our commitment to reliable and affordable parcel delivery. Users can easily calculate shipping costs based on weight categories, track their packages in real-time, and enjoy the convenience of a user-friendly platform that simplifies the entire delivery process.
             </p>
           </div>
-          <div className='image2 ml-10'>
+          <div className='image2 ml-10 flex justify-center'>
             <img src={amico} alt="2" className="w-full h-auto" />
           </div>
         </div>
@@ -58,7 +58,7 @@ const AboutUs = () => {
               </ul>
             </div>
           </div>
-          <div className='image3 ml-10'>
+          <div className='image3 ml-10 flex justify-center'>
             <img src={address} alt="about" className="w-full h-auto" />
           </div>
         </div>

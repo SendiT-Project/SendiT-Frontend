@@ -18,7 +18,7 @@ function Navbar({user,setUser}) {
 
   
   return (
-    <div className='bg-color-primary rounded-lg h-16 flex sm:flex-row'>
+    <div className='bg-color-primary overflow-x-auto rounded-lg text-sm md:text-base lg:text-lg'>
         <div className='rounded-sm flex flex-row justify-between items-center h-full w-11/12 px-4'>
           <p className="text-color-white font-medium text-3xl flex items-center">
           SendiT
@@ -33,7 +33,7 @@ function Navbar({user,setUser}) {
           <Link className='font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/contact'>Contact us</Link>
           <Link className=' font-medium hover:bg-color-secondary p-2 rounded-3xl' to='/tracker'>Tracker</Link>
           <Button content='Logout' onClick={handleLogOut} className=' hover:bg-color-secondary py-2 px-4' />
-          <div className='text-sem text-xl flex my-4'>
+          <div className='text-sem flex my-4'>
             <p className=''>Welcome, {user.username}</p>
           </div>
         </div>
