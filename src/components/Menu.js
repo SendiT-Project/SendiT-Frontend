@@ -12,7 +12,8 @@ const Menu = ({setUser}) => {
 
     function handleLogOut(){
       fetch("https://sendit-backend-lje2.onrender.com/logout",{
-        method: 'DELETE'
+        method: 'DELETE',
+        credentials: "include",
       })
       .then(setUser(null))
       .then(enqueueSnackbar('Logged out successfully', {variant:'success'}))

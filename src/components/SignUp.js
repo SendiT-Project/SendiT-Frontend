@@ -32,6 +32,7 @@ const SignupForm = ({setUser, refresh, setRefresh}) => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(values),
       })
       .then((res) => {
