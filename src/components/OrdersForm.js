@@ -35,6 +35,7 @@ function Orders({refresh, setRefresh}) {
       },
       credentials: "include",
       body: JSON.stringify(orderData),
+      mode: "cors"
     })
       .then((response) => {
         if (response.status === 201) {
