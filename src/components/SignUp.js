@@ -27,7 +27,7 @@ const SignupForm = ({setUser, refresh, setRefresh}) => {
     },
     validationSchema: formSchema,
     onSubmit: ({confirmPassword, ...values}) => {
-      fetch("/signup", {
+      fetch("https://sendit-backend-lje2.onrender.com/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

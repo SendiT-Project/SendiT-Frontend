@@ -19,7 +19,7 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    fetch("/session", { credentials: "include" })
+    fetch("https://sendit-backend-lje2.onrender.com/session", { credentials: "include" })
       .then((response) => {
         console.log("Response status:", response.status);
         return response.json();

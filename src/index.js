@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-     <SnackbarProvider autoHideDuration={4000} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+     <SnackbarProvider autoHideDuration={4000} anchorOrigin={{vertical: 'top', horizontal: 'right'}}>
       <AuthContextProvider>
         <App />
       </AuthContextProvider>

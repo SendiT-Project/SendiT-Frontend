@@ -11,7 +11,7 @@ const Menu = ({setUser}) => {
     const navigate=useNavigate()
 
     function handleLogOut(){
-      fetch("/logout",{
+      fetch("https://sendit-backend-lje2.onrender.com/logout",{
         method: 'DELETE'
       })
       .then(setUser(null))
