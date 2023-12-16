@@ -35,6 +35,7 @@ const Tracker = ({ user, refresh, setRefresh }) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         destination: editedDestination,
       }),

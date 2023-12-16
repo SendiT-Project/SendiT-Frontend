@@ -33,6 +33,7 @@ function Orders({refresh, setRefresh}) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(orderData),
     })
       .then((response) => {
