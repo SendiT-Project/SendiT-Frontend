@@ -33,7 +33,7 @@ const Map = ({ user }) => {
   return (
     <MapContainer
       center={[1.2921, 36.8219]}
-      zoom={7}
+      zoom={5}
       style={{ height: "400px", width: "100%" }}
       className="rounded-md shadow-md my-8"
     >
@@ -59,7 +59,7 @@ const Map = ({ user }) => {
                   .filter((d) => d.orderNumber === order.order_number)
                   .map((d) => d.coordinates),
               ]}
-              color="red"
+              color="blue"
               weight={4}
               arrowheads="true"
             />

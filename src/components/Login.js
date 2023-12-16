@@ -18,7 +18,7 @@ function Login({setUser}) {
   });
 
   const onSubmit = (values) => {
-    fetch("/login", {
+    fetch("https://sendit-backend-lje2.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
